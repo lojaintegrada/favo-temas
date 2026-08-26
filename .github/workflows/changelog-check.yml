@@ -1,0 +1,35 @@
+name: Changelog
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'sem-changelog') }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Todo tema alterado precisa de entrada no changelog
+        env:
+          BASE: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+          git fetch --quiet origin "$BASE"
+          changed=$(git diff --name-only "origin/$BASE...HEAD")
+
+          fail=0
+          for t in $(printf '%s\n' "$changed" | awk -F/ '$1=="themes" && NF>2 {print $2}' | sort -u); do
+            if printf '%s\n' "$changed" | grep -qxF "themes/$t/CHANGELOG.md"; then
+              echo "ok: themes/$t"
+            else
+              echo "::error file=themes/$t/CHANGELOG.md::Este PR altera themes/$t mas não atualiza themes/$t/CHANGELOG.md. Rode a skill \`changelog\` ou aplique o label 'sem-changelog'."
+              fail=1
+            fi
+          done
+
+          [ "$fail" = 0 ] && echo "Nenhum tema pendente."
+          exit $fail
