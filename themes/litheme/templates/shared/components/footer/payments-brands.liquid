@@ -1,0 +1,37 @@
+{%- assign brand_name = brand | capitalize -%}
+{%- assign icon_svg_flag = empty -%}
+{%- assign icon_svg_with_text = empty -%}
+{%- case brand -%}
+  {%- when "visa" -%}
+    {%- assign icon_svg_flag = "fontawesome-brands.svg#cc-visa" -%}
+  {%- when "mastercard" -%}
+    {%- assign icon_svg_flag = "fontawesome-brands.svg#cc-mastercard" -%}
+  {%- when "diners" -%}
+    {%- assign icon_svg_flag = "fontawesome-brands.svg#cc-diners-club" -%}
+  {%- when "amex" -%}
+    {%- assign icon_svg_flag = "fontawesome-brands.svg#cc-amex" -%}
+  {%- when "paypal" -%}
+    {%- assign icon_svg_flag = "fontawesome-brands.svg#cc-paypal" -%}
+  {%- when "boleto" -%}
+    {%- assign icon_svg_with_text = "fontawesome-solid.svg#barcode" -%}
+  {%- when "pix" -%}
+    {%- assign icon_svg_with_text = "fontawesome-brands.svg#pix" -%}
+  {%- when "entrega" -%}
+    {%- assign brand_name = "Pagamento na entrega" -%}
+{%- endcase -%}
+<li class="flex items-center gap-1">
+  {%- if icon_svg_flag -%}
+    <svg class="fill-current size-9" role="img" title="{{ brand_name }}">
+      <use xlink:href="/static/img/{{ icon_svg_flag }}" href="/static/img/{{ icon_svg_flag }}"></use>
+    </svg>
+  {%- else -%}
+    <span class="flex items-center gap-1 rounded-sm text-xs py-1.5 px-2 bg-base-content text-base-100">
+      {%- if icon_svg_with_text -%}
+        <svg class="fill-current size-4" role="img" title="{{ brand_name }}">
+          <use xlink:href="/static/img/{{ icon_svg_with_text }}" href="/static/img/{{ icon_svg_with_text }}"></use>
+        </svg>
+      {%- endif -%}
+      {{ brand_name }}
+    </span>
+  {%- endif -%}
+</li>

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "partial": {
+    "path": "/partial/cart/coupon",
+    "components": [
+      {
+        "template": "shared/components/cart/coupon/bottom-sheet.liquid"
+      }
+    ]
+  },
+  "_version": "3",
+  "global_data": {}
+}

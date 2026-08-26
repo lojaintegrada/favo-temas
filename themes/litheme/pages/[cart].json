@@ -1,0 +1,104 @@
+{
+  "html": {
+    "body": {
+      "components": [
+        {
+          "template": "shared/components/banner/stripe.liquid",
+          "properties": {
+            "async": true
+          }
+        },
+        {
+          "tag": "header",
+          "type": "container",
+          "class": "border-b border-base-200",
+          "components": [
+            {
+              "type": "template",
+              "template": "shared/components/header/index.liquid"
+            },
+            {
+              "type": "template",
+              "template": "shared/components/header/components/floating-bar/index.liquid",
+              "properties": {
+                "show_back_button": true
+              }
+            },
+            {
+              "type": "template",
+              "template": "shared/components/header/components/menu/index.liquid",
+              "data": {
+                "categories": {
+                  "function": "get_category_tree"
+                }
+              }
+            },
+            {
+              "type": "template",
+              "template": "shared/components/header/components/segmented-price/index.liquid"
+            }
+          ]
+        },
+        {
+          "tag": "main",
+          "type": "container",
+          "components": [
+            {
+              "template": "pages/cart/index.liquid"
+            }
+          ]
+        },
+        {
+          "tag": "footer",
+          "type": "container",
+          "components": [
+            {
+              "template": "shared/components/footer/container.liquid",
+              "data": {
+                "store": {
+                  "function": "get_store"
+                },
+                "categories": {
+                  "function": "get_category_tree"
+                },
+                "payment_conditions": {
+                  "function": "get_payment_conditions"
+                },
+                "institutional_pages": {
+                  "function": "get_institutional_pages"
+                }
+              }
+            },
+            {
+              "template": "shared/components/footer/copyright.liquid",
+              "data": {
+                "store": {
+                  "function": "get_store"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "template": "shared/utils/index.liquid"
+        }
+      ]
+    },
+    "head": {
+      "components": [
+        {
+          "template": "shared/components/head/style-general.liquid"
+        },
+        {
+          "template": "shared/components/head/seo.liquid"
+        },
+        {
+          "template": "shared/components/head/script-general.liquid"
+        }
+      ]
+    }
+  },
+  "path": "/[cart]",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "_version": "3"
+}

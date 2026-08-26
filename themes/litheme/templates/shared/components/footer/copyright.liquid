@@ -1,0 +1,38 @@
+<div class="bg-base-100 pb-14 md:pb-0">
+  <div class="container px-5 flex flex-col gap-10 pb-8">
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-col md:flex-row md:justify-center md:gap-2 gap-3">
+        <p class="text-center text-sm text-base-content">
+          {% if data.store.business_name or data.store.owner_name %}
+            {{ data.store.business_name | default: data.store.owner_name }}
+            - 
+          {% endif %}
+          {% if data.store.document_number %}
+            <span class="text-nowrap">
+              {% if data.store.store_type == 'PJ' %}CNPJ{% else %}CPF{% endif %}: {{ data.store.document_number | format_cpfcnpj }}
+            </span>
+          {% endif %}
+          © Todos os direitos reservados. {{ "now" | date: "%Y" }}
+        </p>
+      </div>
+      {% if data.store.address %}
+        <p class="text-center text-sm text-base-content">
+          {{ data.store.address.street }},
+          {{ data.store.address.number }}
+          {% if data.store.address.complement %}
+            - {{ data.store.address.complement }}
+          {% endif %}
+          - {{ data.store.address.district }},
+          {{ data.store.address.city }}/{{ data.store.address.state }}
+          CEP:
+          {% if data.store.address.zip_code contains '-' %}{{ data.store.address.zip_code }}{% else %}{{ data.store.address.zip_code | slice: 0, 5 }}-{{ data.store.address.zip_code | slice: 5, 8 }}{% endif %}
+        </p>
+      {% endif %}
+    </div>
+    <div class="w-full flex justify-center">
+      <a href="https://www.lojaintegrada.com.br?utm_source=lojas&utm_medium=rodape&utm_campaign={{ data.store.domain }}" target="_blank" title="Loja Integrada - Plataforma de loja virtual." class="block mx-auto">
+        <img src="{{ ctx.static_domain }}/production/static/whitelabel/lojaintegrada/img/logo-lojaintegrada-gray.svg" width="170" height="25" loading="lazy" alt="Powered by Loja Integrada" />
+      </a>
+    </div>
+  </div>
+</div>

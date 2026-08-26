@@ -1,0 +1,16 @@
+<button 
+  type="button"
+  hx-get="/partial/shipping-calculator"
+  hx-target="#freight-calculator-portal"
+  hx-swap="innerHTML"
+  hx-indicator="find .htmx-indicator"
+  class="btn btn-secondary gap-2 h-10 w-1/2 flex-1 relative"
+  data-testid="li-minicart-freight-btn"
+>
+  Calcular frete
+  <span class="htmx-indicator spinner-freight opacity-0 absolute inset-0 bg-white/50 flex items-center justify-center rounded-field">
+    <svg class="fill-current size-4 animate-spin" role="img" aria-hidden="true">
+      <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
+    </svg>
+  </span>
+</button>

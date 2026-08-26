@@ -1,0 +1,54 @@
+{%- comment -%}
+  Componente: Coupon Button/Badge
+  Descrição: Botão para abrir sheet de cupom OU badge mostrando cupom aplicado com botão X
+  Estados:
+    - Sem cupom: Botão "Cupom" que abre bottom sheet
+    - Com cupom: Badge verde com nome do cupom e botão X para remover
+{%- endcomment -%}
+
+{% if data.cart.marketing.cupom.id %}
+  {%- comment -%} Estado: Cupom aplicado - Badge com botão X {%- endcomment -%}
+  <form 
+    class="btn btn-secondary gap-2 h-10 w-1/2 flex-1"
+    hx-delete="{{ routes.cart_coupon }}"
+    hx-swap="none"
+    hx-disabled-elt="this"
+  >
+    <input type="hidden" name="coupon_code" value="{{ data.cart.marketing.cupom.id }}" />
+    <svg class="fill-current size-5 text-success" role="img" aria-hidden="true">
+      <use xlink:href="/static/img/fontawesome-solid.svg#ticket" href="/static/img/fontawesome-solid.svg#ticket"></use>
+    </svg>
+    <span class="grow text-sm font-medium truncate text-success" data-testid="li-minicart-coupon-code">
+      {{- data.cart.marketing.cupom.id -}}
+    </span>
+    <button
+      type="submit"
+      class="btn btn-ghost btn-xs text-error p-0 size-5 hover:bg-error/20 shrink-0"
+      aria-label="Remover cupom"
+      data-testid="li-minicart-coupon-remove-btn"
+    >
+      <svg class="fill-current size-5" role="img" aria-hidden="true">
+        <use xlink:href="/static/img/fontawesome-solid.svg#xmark" href="/static/img/fontawesome-solid.svg#xmark"></use>
+      </svg>
+    </button>
+  </form>
+{% else %}
+  {%- comment -%} Estado: Sem cupom - Botão normal {%- endcomment -%}
+  <button 
+    type="button"
+    hx-get="/partial/cart/coupon"
+    hx-target="#coupon-portal"
+    hx-swap="innerHTML"
+    hx-indicator="find .htmx-indicator"
+    class="btn btn-secondary gap-2 h-10 w-1/2 flex-1 relative"
+    data-testid="li-minicart-coupon-btn"
+  >
+    Cupom
+    <span class="htmx-indicator spinner-coupon opacity-0 absolute inset-0 bg-white/50 flex items-center justify-center rounded-field">
+      <svg class="fill-current size-4 animate-spin" role="img" aria-hidden="true">
+        <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
+      </svg>
+    </span>
+  </button>
+{% endif %}
+

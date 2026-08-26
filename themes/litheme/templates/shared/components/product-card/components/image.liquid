@@ -1,0 +1,39 @@
+{%- assign img_obj = product.images[0] -%}
+{%- assign img_url = img_obj.path | default: '/0/0/common/product-no-image.gif' -%}
+{%- assign srcset_widths = '100,120,150,180,200,220,250,280,300,350,400,450,500,550,600,650,700,750,800' | split: ',' -%}
+<div class="relative flex-1 flex items-center">
+  <div class="flex justify-center overflow-hidden relative m-auto w-full max-w-full min-h-ful">
+    <img
+      src="{{ img_url_prefix }}{{ img_url }}"
+      srcset="{% for w in srcset_widths %}{{ ctx.static_domain }}/{{ w }}x{{ w | times: 2 }}{{ img_url }} {{ w }}w{% unless forloop.last %}, {% endunless %}{% endfor %}"
+      sizes="{{ sizes }}"
+      data-id="product-image"
+      alt="{{ product.name }}"
+      class="h-auto w-full object-cover object-center rounded-box"
+      width="{{ img_obj.width | default: img_width }}"
+      height="{{ img_obj.height | default: img_height }}"
+      loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+      {% if forloop.first %}fetchpriority="high"{% endif %}
+    />
+  </div>
+  {%- if product.available and product.price.upon_request == false -%}
+    <span class="absolute z-1 right-1 bottom-1 border border-base-300 rounded-full transition-transform hover:scale-110">
+      <a
+        href="{{ product.url }}"
+        data-id="product-buy-url"
+        class="btn btn-block btn-circle size-11 p-0 bg-neutral"
+        aria-label="Ver {{ product.name }}"
+        {%- if product.options.size == 0 -%}
+          hx-post="{{ product_buy_url | replace: 'PRODUCT_ID', product.id }}"
+          hx-trigger="click"
+        {%- else -%}
+          hx-trigger="none"
+        {%- endif -%}
+        hx-swap="none"
+        hx-push-url="false"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M10.001 7.417v-2.5h-2.5V3.25h2.5V.75h1.667v2.5h2.5v1.667h-2.5v2.5h-1.667ZM6.668 18.25c-.458 0-.85-.163-1.177-.49A1.605 1.605 0 0 1 5 16.583c0-.458.163-.85.49-1.177.326-.326.719-.49 1.177-.49.458 0 .85.164 1.177.49.326.327.49.719.49 1.177 0 .459-.164.851-.49 1.177-.326.327-.719.49-1.177.49Zm8.333 0c-.458 0-.85-.163-1.177-.49a1.605 1.605 0 0 1-.49-1.177c0-.458.164-.85.49-1.177.327-.326.719-.49 1.177-.49.459 0 .851.164 1.177.49.327.327.49.719.49 1.177 0 .459-.163.851-.49 1.177-.326.327-.718.49-1.177.49Zm-13.333-15V1.583h2.73l3.54 7.5h5.834l3.25-5.833h1.896l-3.667 6.625a1.668 1.668 0 0 1-.614.646 1.62 1.62 0 0 1-.844.229H7.585l-.917 1.667h10v1.666h-10c-.625 0-1.1-.27-1.427-.812-.326-.542-.337-1.09-.031-1.646l1.125-2.042-3-6.333H1.668Z"/></svg>
+      </a>
+    </span>
+  {%- endif -%}
+</div>

@@ -1,0 +1,19 @@
+{%- comment -%}
+  Componente: Coupon Bottom Sheet
+  Descrição: Modal bottom sheet para aplicar/remover cupom de desconto
+  Usa as classes genéricas .bottom-sheet
+{%- endcomment -%}
+
+<bottom-sheet-dialog class="bottom-sheet active">
+  <div
+    class="bottom-sheet-overlay bottom-sheet-close"
+  ></div>
+  
+  <div class="bottom-sheet-content bottom-sheet-content-dialog">
+    <div class="coupon-container p-6 bg-white flex flex-col gap-4">
+      {% render 'shared/components/cart/coupon/form' %}
+    </div>
+  </div>
+</bottom-sheet-dialog>
+
+<script defer src="{% asset_url '/scripts/bottom-sheet-dialog.webc.js' %}"></script>

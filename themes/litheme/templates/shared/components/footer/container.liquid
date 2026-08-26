@@ -1,0 +1,58 @@
+
+<div class="mt-6 pb-8 flex flex-col rounded-t-[1.25rem] border-t border-base-200 bg-base-100 content-auto-[500px]">
+  {%-  if layout_attributes.newsletter.boxnews_barra -%}
+    {% render 'shared/components/newsletter/bar.liquid', async: true %}
+  {%- endif -%}
+  <div class="container md:grid md:items-start md:grid-cols-12 md:gap-10 md:pb-6 md:border-b md:border-base-200 md:pt-5">
+    {% render 'shared/components/footer/social' %}
+    {% if data.institutional_pages.size > 0 %}
+      <div class="collapse collapse-arrow border-b border-base-200 md:collapse-open md:col-span-3 md:border-b-0">
+        <input type="radio" name="footer-accordion" class="md:hidden" aria-hidden="true" tabindex="-1" />
+        <div class="collapse-title md:[&:after]:hidden md:cursor-auto">Institucional</div>
+        <div class="collapse-content text-sm">
+          {% for page in data.institutional_pages %}
+            <a class="block text-left break-words text-sm text-base-content py-2 hover:underline" href="/pagina/{{ page.url }}">{{ page.title }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {% if data.categories.size > 0 %}
+      <div class="collapse collapse-arrow border-b border-base-200 md:collapse-open md:col-span-3 md:border-b-0">
+        <input type="radio" name="footer-accordion" class="md:hidden" aria-hidden="true" tabindex="-1" />
+        <div class="collapse-title md:[&:after]:hidden md:cursor-auto">Categorias</div>
+        <div class="collapse-content text-sm">
+          {% for category in data.categories %}
+            <a class="block text-left break-words text-sm text-base-content py-2 hover:underline" href="{{ category.path }}">{{ category.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    <div class="collapse collapse-arrow border-b border-base-200 md:collapse-open md:col-span-3 md:border-b-0">
+      <input type="radio" name="footer-accordion" class="md:hidden" aria-hidden="true" tabindex="-1" />
+      <div class="collapse-title md:[&:after]:hidden md:cursor-auto">Contato</div>
+      <div class="collapse-content text-sm">
+        <div hx-trigger="intersect once" hx-get="/partial/components/sac" hx-select=".component_sac" hx-swap="this"></div>
+      </div>
+    </div>
+  </div>
+  <div class="container md:grid md:grid-cols-2 md:pb-6 md:gap-10 md:pt-5">
+    {% render 'shared/components/footer/payments' %}
+    <div class="collapse collapse-arrow border-b border-base-200 md:collapse-open md:border-b-0">
+      <input type="radio" name="footer-accordion" class="md:hidden" aria-hidden="true" tabindex="-1" />
+      <div class="collapse-title md:[&:after]:hidden md:cursor-auto">Certificados de segurança</div>
+      <div class="collapse-content text-sm md:border-b-0">
+        <ul class="flex flex-wrap items-center gap-3 w-full">
+          <li class="bg-white rounded-selector p-2">
+            <img src="{{ ctx.static_domain }}/production/static/img/struct/stamp_encryptssl.png" width="131" height="40" loading="lazy" alt="Site Seguro" />
+          </li>
+          <li class="bg-white rounded-selector p-2">
+            <a href="http://www.google.com/safebrowsing/diagnostic?site={{ ctx.store.domain }}" target="_blank" rel="noopener noreferrer">
+              <img src="{{ ctx.static_domain }}/production/static/img/struct/stamp_google_safe_browsing.png" width="100" height="40" loading="lazy" alt="Google Safe Browsing" />
+            </a>
+          </li>
+          {% appsection footer_stamps %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

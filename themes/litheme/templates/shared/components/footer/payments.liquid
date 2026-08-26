@@ -1,0 +1,21 @@
+{%- assign payment_brands_empty = '' | split: '' -%}
+{%- assign payment_brands_props = payment_brands_empty -%}
+{%- assign payment_brands_data = payment_brands_empty -%}
+{%- if props.payment_brands[0] -%}
+  {%- assign payment_brands_props = props.payment_brands -%}
+{%- endif -%}
+{%- if data.payment_conditions.brands[0] -%}
+  {%- assign payment_brands_data = data.payment_conditions.brands -%}
+{%- endif -%}
+{%- assign payment_brands = payment_brands_props | concat: payment_brands_data | uniq | compact -%}
+{%- if payment_brands != empty -%}
+  <div class="collapse collapse-arrow border-b border-base-200 md:collapse-open md:border-b-0 ">
+    <input type="radio" name="footer-accordion" class="md:hidden" aria-hidden="true" tabindex="-1" />
+    <div class="collapse-title md:[&:after]:hidden md:cursor-auto">Formas de pagamento</div>
+    <div class="collapse-content text-sm md:border-b-0">
+      <ul class="flex flex-wrap items-center gap-3 w-full">
+        {%- render 'shared/components/footer/payments-brands' for payment_brands as brand -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}

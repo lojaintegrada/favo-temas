@@ -1,0 +1,85 @@
+{%- comment -%}
+  Componente: Coupon Form
+  Descrição: Formulário para aplicar ou remover cupom de desconto
+  Estados:
+    - Sem cupom: Input + Botão "Aplicar"
+    - Com cupom: Badge + Botão "Remover"
+{%- endcomment -%}
+
+<form 
+  id="minicart-coupon-form" 
+  class="flex flex-col gap-4"
+  {% if data.cart.marketing.cupom.id %}
+    hx-delete="{{ routes.cart_coupon }}"
+  {% else %}
+    hx-post="{{ routes.cart_coupon }}"
+  {% endif %}
+  hx-swap="none"
+  hx-disabled-elt="find button, find input"
+>
+  <div id="minicart-coupon-input" class="flex flex-col gap-2">
+    {% if data.cart.marketing.cupom.id %}
+      {%- comment -%} Estado: Cupom aplicado {%- endcomment -%}
+      <div class="flex items-center justify-between p-4 bg-success/10 border border-success rounded-box">
+        <div class="flex items-center gap-2">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-success">
+            <mask id="mask0_coupon" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+              <rect width="20" height="20" fill="#D9D9D9"/>
+            </mask>
+            <g mask="url(#mask0_coupon)">
+              <path d="M8.125 14L4.25 10.125L5.375 9L8.125 11.75L14.625 5.25L15.75 6.375L8.125 14Z" fill="currentColor"/>
+            </g>
+          </svg>
+          <div class="flex flex-col">
+            <span class="text-sm font-medium text-base-content">Cupom aplicado</span>
+            <span class="text-xs text-base-content/70">{{ data.cart.marketing.cupom.id }}</span>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" name="coupon_code" value="{{ data.cart.marketing.cupom.id }}" />
+      <button type="submit" class="btn btn-outline btn-error">
+        <span class="htmx-indicator:hidden">Remover cupom</span>
+        <svg class="htmx-indicator fill-current size-5 animate-spin" role="img" aria-hidden="true">
+          <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
+        </svg>
+      </button>
+    {% else %}
+      {%- comment -%} Estado: Sem cupom {%- endcomment -%}
+       <div class="flex items-center justify-between">
+         <label for="minicart-coupon-input-field" class="text-lg leading-7 font-medium text-base-content">
+           Adicione um cupom
+         </label>
+         <button 
+          type="button"
+          class="bottom-sheet-close"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <mask id="mask0_coupon_close" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+            <rect width="20" height="20" fill="#D9D9D9"/>
+            </mask>
+            <g mask="url(#mask0_coupon_close)">
+            <path d="M5.33317 15.8334L4.1665 14.6667L8.83317 10.0001L4.1665 5.33341L5.33317 4.16675L9.99984 8.83341L14.6665 4.16675L15.8332 5.33341L11.1665 10.0001L15.8332 14.6667L14.6665 15.8334L9.99984 11.1667L5.33317 15.8334Z" fill="#1C1B1F"/>
+            </g>
+          </svg>
+        </button>
+       </div>
+      <input 
+        id="minicart-coupon-input-field"
+        name="coupon_code" 
+        type="text" 
+        placeholder="Ex: DESCONTO10" 
+        class="input input-bordered w-full input-md"
+        required 
+        autocomplete="off"
+        data-testid="li-minicart-coupon-input"
+      />
+      <button type="submit" class="btn btn-primary btn-md" data-testid="li-minicart-coupon-submit">
+        <span class="htmx-indicator:hidden">Aplicar cupom</span>
+        <svg class="htmx-indicator fill-current size-5 animate-spin" role="img" aria-hidden="true">
+          <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
+        </svg>
+      </button>
+    {% endif %}
+  </div>
+</form>
+

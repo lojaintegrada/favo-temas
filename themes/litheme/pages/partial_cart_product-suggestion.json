@@ -1,0 +1,22 @@
+{
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "partial": {
+    "path": "/partial/cart/product-suggestion",
+    "components": [
+      {
+        "data": {
+          "suggestion_products": {
+            "function": "get_products",
+            "args": {
+              "size": 2,
+              "preset": "BestSellingProducts"
+            }
+          }
+        },
+        "template": "shared/components/cart/product-suggestions.liquid"
+      }
+    ]
+  },
+  "_version": "3",
+  "global_data": {}
+}

@@ -1,0 +1,47 @@
+{%- assign img_width = img_width | default: '700' -%}
+{%- assign img_height = img_height | default: '350' -%}
+{%- assign img_sizes = sizes | default: "(max-width: 767px) 50vw, (max-width: 1023px) 33vw, 300px" -%}
+{%- assign img_url_prefix = ctx.static_domain | append: '/' | append: img_width | append: 'x' | append: img_height -%}
+{%- capture additional_classes -%}
+  {%- unless product.available %} opacity-60 {% endunless -%}
+  {{ product.category_ids | join: ' prod-card-cat-' | prepend: 'prod-card-cat-' }}
+{%- endcapture -%}
+
+{%- assign product_buy_url = routes.cart_item | append: '/PRODUCT_ID/add' -%}
+{%- if product.skus.size > 1 and product.options.size == 1 -%}
+  {%- assign options_param_sep = '..' -%}
+  {%- capture product_skus_variation_match -%}
+    {
+      {%- for sku in product.skus -%}
+        {% if sku.available and sku.price.selling > 0 and sku.price.upon_request == false %}
+          {%- for variation in sku.variations -%}
+            {%- assign variation_id = variation.option.id -%}
+            {%- assign variation_name = variation.option.display_name -%}
+            {%- assign variation_ref = variation_name | append: options_param_sep | append: variation_id | remove: "'" | remove: '"' -%}
+            {%- assign option_ref = variation.value.name | append: options_param_sep | append: variation.value.id | remove: "'" | remove: '"' -%}
+            '{{ variation_ref }}{{ options_param_sep }}{{ option_ref }}': '{{ sku.id }}',
+          {%- endfor -%}
+        {% endif %}
+      {%- endfor -%}
+    }
+  {%- endcapture -%}
+{%- endif -%}
+
+<product-card
+  class="group isolate flex flex-col relative h-full {{ additional_classes }}"
+  data-url="{{ product.url }}"
+  data-image-prefix="{{ img_url_prefix }}"
+  data-skus="{{ product_skus_variation_match | default: '{}' }}"
+  data-buy-url="{{ product_buy_url }}"
+>
+  {% render 'shared/components/product-card/components/image', product: product, img_url_prefix: img_url_prefix, img_width: img_width, img_height: img_height, sizes: img_sizes, forloop: forloop, product_buy_url: product_buy_url %}
+  <div class="flex flex-col gap-1 p-3 pb-6 min-h-40 md:min-h-44">
+    {% render 'shared/components/product-card/components/title', product: product %}
+    {% appsection shelf_after_product_title %}
+    {% render 'shared/components/product-card/components/rating', product: product, size: 'xs' %}
+    {% render 'shared/components/product-card/components/options', product: product %}
+    {% render 'shared/components/product-card/components/pricing', product: product %}
+  </div>
+  {% render 'shared/components/product-card/components/badges', product: product %}
+  <a href="{{ product.url }}" data-id="product-url" class="absolute inset-0 w-full h-full" aria-label="Ver {{ product.name }}" data-metrics="select_product" data-mt-prod-position="{{ forloop.index }}" data-mt-prod-id="{{ product.id }}" data-mt-prod-sku="{{ product.code }}" data-mt-prod-name="{{ product.name }}" data-testid="li-shelf-item"></a>
+</product-card>

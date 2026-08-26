@@ -1,0 +1,93 @@
+<div
+  hx-trigger="{% if component_type == 'cart' %}load once{% else %}li-minicart-opened from:body{% endif %}"
+  hx-select="[data-id='minicart-content']"
+  hx-target="this"
+  hx-swap="none"
+  hx-swap-oob="innerHTML:[data-id='minicart-content']"
+  hx-get="{% if component_type == 'cart' %}{{ routes.cart }}{% else %}{{ routes.cart_minicart }}{% endif %}"
+  hx-disabled-elt="find button, find input"
+  class="flex-1 flex flex-col gap-3"
+  data-id="minicart-content"
+>
+  {% if with_session %}
+    {% if data.cart.items.size > 0 %}
+      <div class="flex-1 flex flex-col md:grid md:grid-cols-[4fr_3fr] lg:grid-cols-[2fr_1fr] in-[minicart-drawer]:flex! gap-5">
+        <div class="flex-col gap-3 md:order-last in-[minicart-drawer]:order-first! hidden has-[*]:flex">
+          {% render 'shared/components/cart/free-shipping-alert/index' %}
+          {% render 'shared/components/cart/progressive-discount/index' %}
+        </div>
+        <div class="flex-1 overflow-y-auto scrollbar-thin md:row-span-5">
+          {% render 'shared/components/cart/title', total_items: data.cart.items.size %}
+          <ul role="list" class="flex flex-col divide-y divide-base-200">
+            {% assign sorted_items = data.cart.items | sort_natural: 'sku' %}
+            {% for item in sorted_items %}
+              {% render 'shared/components/cart/items', item: item %}
+            {% endfor %}
+            {% assign sorted_gift_items = data.cart.gift_items | sort_natural: 'sku' %}
+            {% for item in sorted_gift_items %}
+              {% render 'shared/components/cart/items', item: item, readonly: true %}
+            {% endfor %}
+          </ul>
+          {% render 'shared/components/cart/gift/index' %}
+        </div>
+        <hr class="border-base-200 mb-2 md:hidden in-[minicart-drawer]:block!" />
+        <div class="flex flex-col gap-5 px-5">
+          <h2 class="pb-1 text-base-content text-xl font-semibold hidden md:block in-[minicart-drawer]:hidden!">
+            Resumo do pedido
+          </h2>
+          <div class="flex gap-2">
+            {% render 'shared/components/cart/shipping/button' %}
+            {% render 'shared/components/cart/coupon/button' %}
+          </div>
+          <div class="flex flex-col gap-4 text-sm text-base-content">
+            {% if data.cart.totals.items != data.cart.totals.total %}
+              <div class="flex items-center justify-between">
+                <p>Subtotal</p>
+                <p class="font-medium" data-testid="li-minicart-subtotal-value">{{ data.cart.totals.items | default: 0 | format_number: "C" }}</p>
+              </div>
+              {% if data.cart.totals.total_discount > 0 %}
+                <div class="flex items-center justify-between">
+                  <p>Descontos</p>
+                  <p class="font-medium text-success" data-testid="li-minicart-discount-value">{{ data.cart.totals.total_discount | default: 0 | format_number: "C" }}</p>
+                </div>
+              {% endif %}
+            {% endif %}
+            {% if data.cart.totals.shipping > 0 %}
+              <div class="flex items-center justify-between">
+                <p>Frete</p>
+                <p class="font-medium" data-testid="li-minicart-shipping-value">{{ data.cart.totals.shipping | default: 0 | format_number: "C" }}</p>
+              </div>
+            {% endif %}
+            <div class="flex items-center justify-between">
+              <p>Total estimado</p>
+              <p class="font-bold text-base" data-testid="li-minicart-total-value">{{ data.cart.totals.total | default: 0 | format_number: "C" }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="in-[minicart-drawer]:sticky bottom-0 p-5 pt-5 bg-linear-to-t from-neutral from-80%">
+          <a href="/checkout" class="btn btn-primary btn-xl w-full" data-testid="li-minicart-checkout-btn">
+            Finalizar compra
+            <span class="ml-1 bg-primary-content rounded-full p-1 text-primary">
+              <svg class="fill-current size-2.5" role="img" aria-hidden="true">
+                <use xlink:href="/static/img/fontawesome-solid.svg#arrow-right" href="/static/img/fontawesome-solid.svg#arrow-right"></use>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    {% else %}
+      <div class="flex-1 flex items-center justify-center gap-5 flex-col py-6">
+        <p class="text-3xl in-[minicart-drawer]:text-xl font-medium text-base-content block leading-7 text-center">Seu carrinho está vazio</p>
+        <div hx-trigger="intersect once" hx-get="/partial/cart/product-suggestion" hx-select="[data-id='minicart-product-suggestion']" hx-swap="outerHTML"></div>
+        <a class="btn btn-primary btn-md" href="{{ routes.root }}">
+          Continuar comprando
+        </a>
+      </div>
+    {% endif %}
+    <script>
+      document.querySelector('minicart-drawer')?.updateMinicartTotalItems({{ data.cart.items.size | default: 0 }});
+    </script>
+  {% else %}
+    {% render 'shared/components/cart/loading-skeleton' %}
+  {% endif %}
+</div>

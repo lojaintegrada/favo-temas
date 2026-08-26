@@ -1,0 +1,35 @@
+<minicart-drawer class="drawer drawer-end">
+  <input id="header-minicart-drawer-toggle" type="checkbox" class="drawer-toggle hidden" autocomplete="off" />
+  <div
+    id="header-minicart-modal"
+    class="drawer-side fixed inset-0"
+    role="dialog"
+    aria-labelledby="minicart-over-title"
+    aria-modal="true"
+  >
+    <label for="header-minicart-drawer-toggle" aria-label="Fechar minicart" class="drawer-overlay absolute inset-0 bg-black/50"></label>
+    <div class="w-full max-w-md flex h-full flex-col overflow-y-auto scrollbar-thin bg-neutral text-base-content ml-auto">
+      <div class="mb-5 px-6 py-5 border-b border-base-200 flex items-center justify-between h-16">
+        <span class="block text-lg font-medium text-neutral-content leading-6" id="minicart-over-title">
+          Seu carrinho
+        </span>
+        <label for="header-minicart-drawer-toggle" class="btn btn-ghost btn-square shrink-0 -mr-2" data-testid="li-minicart-drawer-close">
+          <span class="sr-only">Fechar carrinho</span>
+          <svg class="fill-current size-5 shrink-0" role="img" aria-hidden="true">
+            <use xlink:href="/static/img/fontawesome-solid.svg#xmark" href="/static/img/fontawesome-solid.svg#xmark"></use>
+          </svg>
+        </label>
+      </div>
+      {% render 'shared/components/cart/index', with_session: false, component_type: 'minicart' %}
+    </div>
+  </div>
+</minicart-drawer>
+
+<script defer src="{% asset_url '/scripts/minicart-drawer.webc.js' %}"></script>
+<script>
+  var totalItems = localStorage.getItem("li-minicart-total-items") || 0;
+  var totalItemsElements = document.querySelectorAll('[data-id="minicart-totalitems"]');
+  totalItemsElements.forEach(function(element) {
+    element.textContent = totalItems;
+  });
+</script>

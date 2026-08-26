@@ -1,0 +1,532 @@
+/* `litheme` — setup e build
+ *
+ * Este arquivo espera um `package.json` na raiz do tema. Se você pegou o tema por
+ * outro caminho e ele não veio junto, crie-o com este conteúdo:
+ *
+ * ```json
+ * {
+ *   "name": "litheme",
+ *   "version": "0.0.0",
+ *   "author": "Loja Integrada",
+ *   "scripts": {
+ *     "build:css": "npx @tailwindcss/cli -i assets/style/theme.css -o assets/style/theme.min.css --minify",
+ *     "watch:css": "npx @tailwindcss/cli -i assets/style/theme.css -o assets/style/theme.min.css --watch"
+ *   },
+ *   "devDependencies": {
+ *     "@tailwindcss/cli": "^4.3.1",
+ *     "@tailwindcss/typography": "^0.5.19",
+ *     "daisyui": "^5.5.23",
+ *     "tailwindcss": "^4.3.1"
+ *   }
+ * }
+ * ```
+ *
+ * Comandos:
+ * - `npm install`      instala Tailwind CSS, DaisyUI e Typography.
+ * - `npm run build:css` gera o `assets/style/theme.min.css` minificado.
+ * - `npm run watch:css` reconstrói o `.min.css` a cada alteração nos templates.
+ *
+ * Nunca edite o `theme.min.css` direto — ele é gerado a partir deste arquivo.
+ */
+
+@import "tailwindcss" source(none);
+@source "../../pages";
+@source "../../templates";
+@source "../scripts";
+@plugin "@tailwindcss/typography";
+
+@plugin "daisyui" {
+  themes: "litheme" --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "litheme";
+  default: true;
+  color-scheme: "light";
+  --root-bg: #ffffff;
+  --color-base-100: #f5f6f8;
+  --color-base-200: #f1f2f4;
+  --color-base-300: #e2e5e9;
+  --color-base-content: #101828;
+  --color-primary: #0846ef;
+  --color-primary-content: #ffffff;
+  --color-secondary: #0846ef;
+  --color-secondary-content: #ffffff;
+  --color-accent: #ffffff;
+  --color-accent-content: #101828;
+  --color-neutral: #ffffff;
+  --color-neutral-content: #101828;
+  --color-info: #cfd2d6;
+  --color-info-content: #101828;
+  --color-success: #27a47d;
+  --color-success-content: #ffffff;
+  --color-warning: #fcb700;
+  --color-warning-content: #793205;
+  --color-error: #ff6265;
+  --color-error-content: #4d0218;
+  --radius-selector: 0.375rem;
+  --radius-box: 0.75rem;
+  --radius-field: 2rem;
+  --size-field: 0.25rem;
+  --size-selector: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 1;
+}
+
+@layer theme {
+  :root,
+  :host {
+    --font-sans:
+      "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+@layer base {
+  /* Disabled due to Meta browser issues */
+  /* @view-transition {
+    navigation: auto;
+  } */
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [role="button"]:disabled {
+    cursor: default;
+  }
+
+  body {
+    background-color: var(--color-neutral);
+  }
+}
+
+@utility floating-bar-style {
+  @apply rounded-full bg-white/50 backdrop-blur-md border border-white/20 outline outline-black/10 shadow-[0_4px_16px_0_#00000033] shadow-black/20 transition-all duration-300;
+}
+
+/* Alert */
+
+@utility alert {
+  @apply border-none py-4 items-start;
+}
+
+@utility alert-success {
+  @apply bg-success text-success-content border-none;
+}
+
+@utility alert-warning {
+  @apply bg-warning text-warning-content border-none;
+}
+
+@utility alert-error {
+  @apply bg-error text-error-content border-none;
+}
+
+/* Badge */
+
+@utility badge {
+  @apply px-2;
+}
+
+/* Button */
+
+@utility btn {
+  @apply font-medium shadow-none;
+}
+
+@utility btn-secondary {
+  @apply bg-base-200 text-neutral-content border-transparent;
+  @apply hover:bg-base-200/80;
+  @apply active:bg-base-200/90;
+  @apply focus:bg-base-200/90;
+  @apply focus:ring-base-200/90;
+  @apply focus:ring-offset-base-200/90;
+  @apply focus:ring-offset-2;
+  @apply focus:ring-2;
+  @apply focus:ring-offset-2;
+}
+
+/* Collapse */
+
+@utility collapse {
+  @apply bg-transparent rounded-none outline-none;
+}
+
+@utility collapse-title {
+  @apply text-base font-medium text-base-content block px-0;
+
+  &:after {
+    @apply right-1;
+  }
+}
+
+@utility collapse-content {
+  @apply px-0;
+}
+
+/* Card */
+
+@utility card {
+  @apply bg-base-100;
+}
+
+@utility card-body {
+  @apply px-3 py-6;
+}
+
+@utility card-title {
+  @apply text-sm font-medium text-base-content;
+}
+
+/* Form */
+
+@utility label {
+  @apply text-lg leading-7 font-medium text-base-content;
+}
+
+@utility textarea {
+  @apply border border-base-200 bg-white rounded-2xl;
+}
+
+@utility input {
+  @apply border border-base-200 bg-white;
+}
+
+@utility input-md {
+  @apply h-11 px-6;
+}
+
+@utility input-neutral {
+  @apply bg-neutral;
+}
+
+/* Checkbox */
+
+@utility checkbox {
+  @apply size-5.5 py-1 px-1.5;
+}
+
+:is(.checkbox:checked, .checkbox[aria-checked="true"]):before {
+  @apply size-3;
+}
+
+/* Button */
+
+@utility btn {
+  @apply px-6 border-none;
+}
+
+@utility btn-md {
+  @apply h-11;
+}
+
+@utility btn-sm {
+  @apply h-10;
+}
+
+@utility btn-lg {
+  @apply text-sm gap-2.5;
+}
+
+@utility btn-xl {
+  @apply text-sm font-medium gap-2.5;
+}
+
+@utility btn-disabled {
+  @apply bg-gray-300;
+}
+
+/* Drawer */
+
+@utility drawer-side {
+  .drawer-toggle:checked ~ & {
+    @apply z-50;
+  }
+}
+
+/* Modal */
+@utility modal-box {
+  @apply bg-white;
+}
+
+/* Breadcrumb */
+
+@utility breadcrumbs {
+  > menu,
+  > ul,
+  > ol {
+    > li {
+      & + *:before {
+        @apply m-0 h-auto w-auto opacity-100 rotate-0 border-0 bg-transparent;
+        @apply content-['|'] mx-3 text-base-300;
+      }
+    }
+  }
+}
+
+/* Utils */
+
+@utility max-w-container {
+  max-width: var(--container-7xl, 100%);
+}
+
+@utility container {
+  @apply max-w-container w-full mx-auto px-4;
+}
+
+@utility break-words {
+  word-break: break-word;
+}
+
+@utility content-auto {
+  content-visibility: auto;
+}
+
+@utility content-auto-* {
+  content-visibility: auto;
+  contain-intrinsic-size: auto --value([length]);
+}
+
+@layer components {
+  /* ============================================
+     Bottom Sheet - Componente Genérico
+     Usado em: freight calculator, coupon, filters, etc
+     ============================================ */
+
+  .bottom-sheet {
+    @apply fixed inset-0 z-99999;
+    @apply pointer-events-none;
+  }
+
+  .bottom-sheet.active {
+    @apply pointer-events-auto;
+  }
+
+  .bottom-sheet-overlay {
+    @apply fixed inset-0;
+    @apply bg-black/50 backdrop-blur-sm md:backdrop-blur-none;
+    @apply opacity-0 pointer-events-none;
+    @apply transition-opacity duration-300 ease-out;
+    @apply cursor-pointer;
+  }
+
+  .bottom-sheet.active .bottom-sheet-overlay {
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  .bottom-sheet-content {
+    @apply absolute bottom-0 left-0 right-0 md:left-auto md:right-0;
+    @apply bg-white rounded-t-2xl;
+    @apply max-h-[80vh] overflow-y-auto md:w-full;
+    @apply translate-y-full transition-transform duration-300 ease-out;
+    @apply pointer-events-none;
+    @apply shadow-[0_-4px_24px_rgba(0,0,0,0.15)] md:max-w-md md:shadow-none;
+  }
+
+  .bottom-sheet.active .bottom-sheet-content {
+    @apply translate-y-0 pointer-events-auto;
+  }
+
+  .bottom-sheet .bottom-sheet-content-dialog {
+    @apply md:left-1/2 md:right-0 md:-translate-x-1/2;
+  }
+
+  .bottom-sheet.active .bottom-sheet-content-dialog {
+    @apply md:top-1/2 md:-translate-y-1/2 md:bottom-0 md:max-h-none md:rounded-2xl md:h-max;
+  }
+
+  /* Embla Carousel */
+  .embla {
+    @apply overflow-hidden;
+  }
+
+  .embla__container {
+    @apply backface-hidden touch-pan-y touch-pinch-zoom;
+  }
+  [data-auto-height="true"] .embla__container {
+    @apply items-start;
+  }
+
+  .embla__slide {
+    @apply relative min-w-0;
+    flex: 0 0 var(--slide-width, 80%);
+  }
+
+  @media (width >= 48rem) {
+    .embla__slide {
+      flex-basis: var(--slide-width-md, 25%);
+    }
+  }
+
+  @media (width >= 64rem) {
+    .embla__slide {
+      flex-basis: var(--slide-width-lg, 20%);
+    }
+  }
+
+  /* Carousel Dots with Progress */
+  [data-carousel-dot] {
+    @apply relative overflow-hidden;
+    isolation: isolate;
+  }
+
+  .dot-progress {
+    @apply absolute inset-0 right-auto w-0 bg-primary z-1 pointer-events-none;
+  }
+
+  .dot-progress.animating {
+    animation: dot-fill var(--dot-duration, 5000ms) linear forwards;
+  }
+
+  @keyframes dot-fill {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
+  /* ============================================
+     Product Zoom Drawer
+     ============================================ */
+
+  .product-zoom-drawer {
+    @apply fixed inset-0 z-99999;
+    @apply invisible pointer-events-none;
+  }
+
+  .product-zoom-drawer.active {
+    @apply visible pointer-events-auto;
+  }
+
+  .product-zoom-overlay {
+    @apply absolute inset-0;
+    @apply bg-black/60;
+    @apply opacity-0 transition-opacity duration-300;
+  }
+
+  .product-zoom-drawer.active .product-zoom-overlay {
+    @apply opacity-100;
+  }
+
+  .product-zoom-content {
+    @apply absolute bottom-0 left-0 right-0;
+    @apply max-h-[90vh] bg-base-100;
+    @apply rounded-t-2xl;
+    @apply translate-y-full transition-transform duration-300 ease-out;
+  }
+
+  .product-zoom-drawer.active .product-zoom-content {
+    @apply translate-y-0;
+  }
+
+  .product-zoom-header {
+    @apply sticky top-0 z-10;
+    @apply bg-base-100 border-b border-base-300;
+    @apply p-4 flex justify-between items-center gap-4;
+  }
+
+  .product-zoom-scroll {
+    @apply overflow-y-auto overflow-x-hidden;
+    @apply max-h-[calc(90vh-4rem)];
+    @apply p-4 flex flex-col gap-4;
+  }
+
+  /* ============================================
+     Categories - Header
+     ============================================ */
+
+  .categories-item,
+  .categories-container-item {
+    &:hover > .categories-container {
+      @apply block opacity-100;
+    }
+
+    &:hover > .categories-item-link {
+      @apply opacity-100!;
+    }
+  }
+
+  .categories-item-link {
+    @apply text-base text-base-content font-medium;
+  }
+
+  .categories-container {
+    @apply absolute py-3 border border-base-300 bg-neutral transition-all ease-in-out transition-discrete hidden opacity-0 before:hidden w-auto max-w-90 min-w-70;
+  }
+
+  .categories-container-top {
+    @apply top-full left-0 z-20;
+  }
+
+  .categories-container-right {
+    @apply -top-px left-full min-h-[calc(100%+0.125rem)] overflow-visible;
+  }
+
+  .categories-container-link {
+    @apply flex items-center justify-between text-base text-base-content font-medium hover:bg-base-100 rounded-md transition-all transition-discrete hover:underline py-3 px-4 break-words;
+  }
+
+  .categories-container-item {
+    @apply px-3;
+  }
+
+  /* ============================================
+     Mega Menu - Todas as categorias
+     Reutiliza as classes categories-container
+     ============================================ */
+
+  .categories-item-mega {
+    position: static;
+  }
+
+  .mega-menu {
+    @apply hidden;
+    @apply absolute left-0 right-0;
+    @apply border-y border-base-300;
+    @apply invisible opacity-0 transition-discrete transition-all ease-in-out z-30 pointer-events-none;
+    box-shadow: 0 250px 150px 100px rgba(0, 0, 0, 0.5);
+  }
+
+  /* has input checked */
+  .categories-item-mega:has(input.mega-menu-toggle:checked) .mega-menu {
+    @apply block;
+    @apply visible opacity-100 pointer-events-auto;
+  }
+
+  .mega-menu-content {
+    @apply flex;
+  }
+
+  .mega-menu-backdrop {
+    @apply block fixed z-1 inset-0 bg-transparent cursor-pointer;
+  }
+
+  /* Primeira coluna do mega menu */
+  .categories-container-mega {
+    @apply block opacity-100 py-3 border-0 border-r border-base-300 relative;
+  }
+
+  /* Product Suggestion */
+  .mega-menu-products {
+    @apply flex-1 p-6;
+    @apply transition-all;
+  }
+
+  /* Quando há hover em item com filhos, esconde o product suggestion */
+  .mega-menu-content:has(
+      .categories-container-item:hover > .categories-container
+    )
+    .mega-menu-products {
+    @apply invisible opacity-0;
+  }
+}

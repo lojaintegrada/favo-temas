@@ -1,0 +1,228 @@
+{
+  "html": {
+    "body": {
+      "components": [
+        {
+          "template": "shared/components/banner/stripe.liquid",
+          "properties": {
+            "async": true
+          }
+        },
+        {
+          "tag": "header",
+          "type": "container",
+          "components": [
+            {
+              "type": "template",
+              "template": "shared/components/header/index.liquid"
+            },
+            {
+              "type": "template",
+              "template": "shared/components/header/components/floating-bar/index.liquid"
+            },
+            {
+              "type": "template",
+              "template": "shared/components/header/components/menu/index.liquid",
+              "data": {
+                "categories": {
+                  "function": "get_category_tree"
+                }
+              }
+            },
+            {
+              "type": "template",
+              "template": "shared/components/header/components/segmented-price/index.liquid"
+            }
+          ]
+        },
+        {
+          "tag": "main",
+          "type": "container",
+          "components": [
+            {
+              "template": "shared/components/banner/index.liquid",
+              "data": {
+                "banners": {
+                  "args": {
+                    "location": "home",
+                    "position": "full"
+                  },
+                  "function": "get_banners"
+                }
+              },
+              "properties": {
+                "position": "full"
+              }
+            },
+            {
+              "template": "shared/components/banner/index.liquid",
+              "data": {
+                "banners": {
+                  "args": {
+                    "location": "home",
+                    "position": "stripe"
+                  },
+                  "function": "get_banners"
+                }
+              },
+              "properties": {
+                "position": "stripe"
+              }
+            },
+            {
+              "template": "pages/home/shelf.liquid",
+              "data": {
+                "shelf_result": {
+                  "function": "get_products",
+                  "args": {
+                    "preset": "HighlightedProducts",
+                    "size": 8
+                  }
+                }
+              },
+              "properties": {
+                "title": "Destaques",
+                "shelf_id": "highlights"
+              }
+            },
+            {
+              "template": "shared/components/banner/index.liquid",
+              "data": {
+                "banners": {
+                  "args": {
+                    "location": "home",
+                    "position": "showcase"
+                  },
+                  "function": "get_banners"
+                }
+              },
+              "properties": {
+                "position": "showcase",
+                "splitted": "odd"
+              }
+            },
+            {
+              "template": "shared/components/banner/index.liquid",
+              "data": {
+                "banners": {
+                  "args": {
+                    "location": "home",
+                    "position": "mini"
+                  },
+                  "function": "get_banners"
+                }
+              },
+              "properties": {
+                "position": "mini"
+              }
+            },
+            {
+              "template": "pages/home/shelf.liquid",
+              "data": {
+                "shelf_result": {
+                  "function": "get_products",
+                  "args": {
+                    "preset": "NewestProducts",
+                    "size": 8
+                  }
+                }
+              },
+              "properties": {
+                "title": "Lançamentos",
+                "shelf_id": "newest"
+              }
+            },
+            {
+              "template": "shared/components/banner/index.liquid",
+              "data": {
+                "banners": {
+                  "args": {
+                    "location": "home",
+                    "position": "showcase"
+                  },
+                  "function": "get_banners"
+                }
+              },
+              "properties": {
+                "position": "showcase",
+                "splitted": "even"
+              }
+            },
+            {
+              "template": "pages/home/shelf.liquid",
+              "data": {
+                "shelf_result": {
+                  "function": "get_products",
+                  "args": {
+                    "preset": "BestSellingProducts",
+                    "size": 8
+                  }
+                }
+              },
+              "properties": {
+                "title": "Mais Vendidos",
+                "shelf_id": "bestselling"
+              }
+            }
+          ]
+        },
+        {
+          "tag": "footer",
+          "type": "container",
+          "components": [
+            {
+              "template": "shared/components/footer/container.liquid",
+              "data": {
+                "store": {
+                  "function": "get_store"
+                },
+                "categories": {
+                  "function": "get_category_tree"
+                },
+                "payment_conditions": {
+                  "function": "get_payment_conditions"
+                },
+                "institutional_pages": {
+                  "function": "get_institutional_pages"
+                }
+              }
+            },
+            {
+              "template": "shared/components/footer/copyright.liquid",
+              "data": {
+                "store": {
+                  "function": "get_store"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "template": "shared/utils/index.liquid"
+        }
+      ]
+    },
+    "head": {
+      "components": [
+        {
+          "template": "shared/components/head/style-general.liquid"
+        },
+        {
+          "template": "shared/components/head/seo.liquid",
+          "data": {
+            "store": {
+              "function": "get_store"
+            }
+          }
+        },
+        {
+          "template": "shared/components/head/script-general.liquid"
+        }
+      ]
+    }
+  },
+  "path": "/",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "_version": "3",
+  "global_data": {}
+}

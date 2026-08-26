@@ -1,0 +1,21 @@
+{
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "partial": {
+    "path": "/partial/banner/stripe",
+    "components": [
+      {
+        "data": {
+          "payment_conditions": {
+            "function": "get_payment_conditions"
+          },
+          "freight_conditions": {
+            "function": "get_freight_conditions"
+          }
+        },
+        "template": "shared/components/banner/stripe.liquid"
+      }
+    ]
+  },
+  "_version": "3",
+  "global_data": {}
+}

@@ -1,0 +1,175 @@
+{
+  "html": {
+    "body": {
+      "components": [
+        {
+          "template": "shared/components/banner/stripe.liquid",
+          "properties": {
+            "async": true
+          }
+        },
+        {
+          "tag": "header",
+          "type": "container",
+          "class": "border-b border-base-200",
+          "components": [
+            {
+              "type": "template",
+              "template": "shared/components/header/index.liquid"
+            },
+            {
+              "type": "template",
+              "template": "shared/components/header/components/floating-bar/index.liquid",
+              "properties": {
+                "show_back_button": true
+              }
+            },
+            {
+              "type": "template",
+              "template": "shared/components/header/components/menu/index.liquid",
+              "data": {
+                "categories": {
+                  "function": "get_category_tree"
+                }
+              }
+            },
+            {
+              "type": "template",
+              "template": "shared/components/header/components/segmented-price/index.liquid"
+            }
+          ]
+        },
+        {
+          "tag": "main",
+          "type": "container",
+          "components": [
+            {
+              "template": "shared/components/banner/index.liquid",
+              "data": {
+                "banners": {
+                  "args": {
+                    "location": "extra",
+                    "position": "full"
+                  },
+                  "function": "get_banners"
+                }
+              },
+              "properties": {
+                "position": "full"
+              }
+            },
+            {
+              "template": "shared/components/banner/index.liquid",
+              "data": {
+                "banners": {
+                  "args": {
+                    "location": "extra",
+                    "position": "stripe"
+                  },
+                  "function": "get_banners"
+                }
+              },
+              "properties": {
+                "position": "stripe"
+              }
+            },
+            {
+              "template": "shared/components/banner/index.liquid",
+              "data": {
+                "banners": {
+                  "args": {
+                    "location": "extra",
+                    "position": "mini"
+                  },
+                  "function": "get_banners"
+                }
+              },
+              "properties": {
+                "position": "mini"
+              }
+            },
+            {
+              "template": "content/institutional-page.liquid"
+            },
+            {
+              "template": "components/space.liquid",
+              "properties": {
+                "class": "h-10 lg:h-20"
+              }
+            },
+            {
+              "template": "shared/components/banner/index.liquid",
+              "data": {
+                "banners": {
+                  "args": {
+                    "location": "extra",
+                    "position": "showcase"
+                  },
+                  "function": "get_banners"
+                }
+              },
+              "properties": {
+                "position": "showcase"
+              }
+            }
+          ]
+        },
+        {
+          "tag": "footer",
+          "type": "container",
+          "components": [
+            {
+              "template": "shared/components/footer/container.liquid",
+              "data": {
+                "store": {
+                  "function": "get_store"
+                },
+                "categories": {
+                  "function": "get_category_tree"
+                },
+                "payment_conditions": {
+                  "function": "get_payment_conditions"
+                },
+                "institutional_pages": {
+                  "function": "get_institutional_pages"
+                }
+              }
+            },
+            {
+              "template": "shared/components/footer/copyright.liquid",
+              "data": {
+                "store": {
+                  "function": "get_store"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "template": "shared/utils/index.liquid"
+        }
+      ]
+    },
+    "head": {
+      "components": [
+        {
+          "template": "shared/components/head/style-general.liquid"
+        },
+        {
+          "template": "shared/components/head/seo.liquid"
+        },
+        {
+          "template": "shared/components/head/script-general.liquid"
+        }
+      ]
+    }
+  },
+  "path": "/[institutional-page]",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "_version": "3",
+  "global_data": {
+    "institutional_page": {
+      "function": "get_institutional_page"
+    }
+  }
+}

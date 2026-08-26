@@ -1,0 +1,8 @@
+<h1 class="pb-2 pl-3 text-base-content text-xl font-semibold in-[minicart-drawer]:hidden!">
+  Carrinho
+  {% if total_items %}
+    <span class="font-normal text-base-content/70">
+      ({{ total_items }} {{ total_items | pluralize: 'item', 'items' }})
+    </span>
+  {% endif %}
+</h1>

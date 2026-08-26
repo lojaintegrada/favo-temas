@@ -1,0 +1,2 @@
+# não entram no .zip das releases (git archive)
+.gitattributes export-ignore

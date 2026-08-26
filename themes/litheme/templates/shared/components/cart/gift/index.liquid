@@ -1,0 +1,28 @@
+{%- comment -%}
+  Componente: Gift Progress
+  Descrição: Mostra o progresso para ganhar um presente/brinde
+  Props esperadas via data.cart_offers_conditions.gift:
+    - total_cart_value: Valor atual do carrinho
+    - amount_needed_for_gift: Valor necessário para ganhar o presente
+    - applied_value_gift_offers: Valor já aplicado em ofertas de presente
+{%- endcomment -%}
+
+{%- assign gift_condition = data.cart_offers_conditions.gift -%}
+
+{% if gift_condition and gift_condition.amount_needed_for_gift > 0 %}
+  <div class="mx-6 px-4 py-3 border border-dashed border-primary rounded-box bg-gray-100 flex items-center gap-5">
+    {%- comment -%} Ícone de presente {%- endcomment -%}
+    <div class="shrink-0 mt-1">
+      <svg class="fill-current size-6" role="img" aria-hidden="true">
+        <use xlink:href="/static/img/fontawesome-solid.svg#gift" href="/static/img/fontawesome-solid.svg#gift"></use>
+      </svg>
+    </div>
+
+    {%- comment -%} Conteúdo da mensagem {%- endcomment -%}
+    <p class="text-sm text-base-content leading-5 flex-1">
+      Presente especial para você! Falta pouco:
+      adicione mais <strong class="font-medium">{{ gift_condition.amount_needed_for_gift | format_number: "C" }}</strong> para revelar essa surpresa.
+    </p>
+  </div>
+{% endif %}
+

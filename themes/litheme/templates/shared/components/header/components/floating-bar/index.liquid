@@ -1,0 +1,32 @@
+<div id="floating-bar" class="flex items-center gap-2.5 fixed bottom-5 left-1/2 -translate-x-1/2 z-50 md:hidden transition-[transform,opacity] duration-300">
+  {% if props.show_back_button %}
+    <div class="p-1.5 floating-bar-style">
+      <a href="/" onclick="if (document.referrer && document.referrer.indexOf(location.origin) === 0) { history.back(); return false; }" class="btn btn-ghost btn-square size-11 p-0 rounded-full ">
+        <span class="sr-only">Voltar</span>
+        <svg class="text-base-content" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <mask id="mask0_797_13913" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+        <rect width="24" height="24" fill="currentColor"/>
+        </mask>
+        <g mask="url(#mask0_797_13913)">
+        <path d="M10.375 17L11.5125 15.7917L8.62812 12.8333H18.5V11.1667H8.62812L11.5125 8.20833L10.375 7L5.5 12L10.375 17Z" fill="currentColor"/>
+        </g>
+        </svg>
+      </a>
+    </div>
+  {% endif %}
+  <div class="flex items-center gap-4 px-5 py-1.5 floating-bar-style">
+    <a href="/" class="btn btn-ghost btn-square size-11 p-0">
+      <span class="sr-only">Minha conta</span>
+      <svg class="text-base-content" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M6 19H9V13H15V19H18V10L12 5.5L6 10V19ZM4 21V9L12 3L20 9V21H13V15H11V21H4Z"/>
+      </svg>
+    </a>
+    {% render 'shared/components/header/components/search/search-button' %}
+    {% render 'shared/components/header/components/minicart/button' %}
+    {% render 'shared/components/header/components/navbar/navigation' %}
+  </div>
+</div>
+
+{% render 'shared/components/header/components/minicart/drawer' %}
+{% render 'shared/components/header/components/search/search-drawer' %}
+{% render 'shared/components/header/components/navbar/navigation-drawer' %}

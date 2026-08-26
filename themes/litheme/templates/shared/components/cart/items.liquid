@@ -1,0 +1,165 @@
+<li class="flex items-center gap-4 px-5 py-4" data-testid="li-minicart-item">
+  {% if readonly %}<div class="w-full flex items-center bg-success/10 border border-dashed border-success rounded-box px-4 py-3 gap-5">{% endif %}
+    <div class="size-20 shrink-0 overflow-hidden">
+      <img src="{{ ctx.static_domain }}/80x80/{{ item.images[0].path | default: '0/0/common/product-no-image.gif' }}" alt="{{ item.name }}" class="h-full w-full object-contain object-center rounded-xl" loading="lazy" />
+    </div>
+    <div class="w-full flex flex-row gap-4">
+      <div class="flex flex-col justify-between items-start gap-2 grow shrink">
+        <div>
+          {% unless readonly %}<a href="{{ item.url }}" class="text-sm font-medium text-base-content block leading-5 break-words" data-testid="li-minicart-item-name">{% endunless %}
+            {{ item.name }}
+          {% unless readonly %}</a>{% endunless %}
+          {% for variation in item.variation_types %}
+            <p class="mt-0.5 text-xs font-light text-base-content/70">
+              {% if variation.id == '8948' or variation.id == '8945' %}
+                Cor:
+              {% else %}
+                {{ variation.name }}:
+              {% endif %}
+              <span class="font-semibold">
+                {% for option in variation.variations %}
+                  {% if option.color %}
+                    <span class="inline-block align-middle size-0 border-0 border-b-20 border-l-20" style="border-color: {{ option.color }} {{ option.secondary_color | default: option.color }};" title="{{ option.name }}"></span>
+                  {% else %}
+                    {{ option.name }}
+                  {% endif %}
+                  {% unless forloop.last %}, {% endunless %}
+                {% endfor %}
+              </span>
+            </p>
+          {% endfor %}
+        </div>
+        {% unless readonly %}
+          <p class="font-bold text-base-content text-base">{{ item.price.selling_price | times: item.quantity | format_number: "C" }}</p>
+        {% endunless %}
+      </div> 
+      <div class="flex items-center gap-2 relative shrink-0">
+        {% if readonly %}
+          <span class="badge badge-sm badge-soft badge-success">
+            Brinde
+          </span>
+        {% else %}
+          <form
+            method="POST"
+            class="join relative bg-base-100 rounded-full flex items-center p-2.5 h-11"
+            onsubmit="return false;"
+            {% unless readonly %}
+              hx-post="{{ routes.cart_item }}/{{ item.id }}/update"
+              hx-swap="none"
+              hx-trigger="submit"
+              hx-indicator=".spinner-{{ item.id }}"
+              hx-disabled-elt="button, input"
+              hx-sync="this:abort"
+            {% endunless %}
+          >
+            <button
+              type="button"
+              class="btn btn-square btn-ghost btn-xs rounded-full px-0 {% if readonly %}opacity-50 cursor-not-allowed{% endif %}"
+              {% if readonly %}
+                disabled
+              {% else %}
+                onclick="
+                  const input = this.closest('form').querySelector('input[name=quantity]');
+                  input.value = Math.max(0, input.value - 1);
+                  input.dispatchEvent(new Event('change'));
+                "
+              {% endif %}
+              data-testid="li-minicart-item-decrease-quantity"
+              title="Diminuir quantidade"
+            >
+              <span class="sr-only">Diminuir quantidade</span>
+              <svg width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 2V0H12V2H0Z" fill="#101828"/>
+              </svg>
+            </button>
+            <div class="join-item w-5 h-6">
+              <input
+                class="validator text-center max-w-14 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent outline-none border-none text-sm w-full"
+                value="{{ item.quantity }}"
+                name="quantity"
+                type="number"
+                min="0"
+                max="1110"
+                pattern="[0-9]*"
+                autocomplete="off"
+                step="1"
+                required
+                {% if readonly %}
+                  disabled
+                {% else %}
+                  oninput="
+                    if (isNaN(this.value) || Number(this.value) < Number(this.min)) {
+                      this.value = this.min;
+                    }
+                    if (Number(this.value) > Number(this.max)) {
+                      this.value = this.max;
+                    }
+                    clearTimeout(this.debounceTimer);
+                    this.debounceTimer = setTimeout(() => {
+                      this.dispatchEvent(new Event('change'));
+                    }, 5000);
+                  "
+                  onchange="
+                    const newValue = Math.max(Number(this.min), Math.min(Number(this.value), Number(this.max)));
+                    this.value = newValue;
+                    this.setAttribute('value', newValue);
+                    htmx.trigger(this.closest('form'), 'submit');
+                  "
+                  onkeydown="
+                    if (event.key === 'Enter') {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      clearTimeout(this.debounceTimer);
+                      this.blur();
+                    }
+                  "
+                  onfocus="this.select()"
+                {% endif %}
+              >
+            </div>
+            <button
+              type="button"
+              class="btn btn-square btn-ghost btn-xs rounded-full px-0 {% if readonly %}opacity-50 cursor-not-allowed{% endif %}"
+              {% if readonly %}
+                disabled
+              {% else %}
+                onclick="
+                  const input = this.closest('form').querySelector('input[name=quantity]');
+                  input.value++;
+                  input.dispatchEvent(new Event('change'));
+                "
+              {% endif %}
+              data-testid="li-minicart-item-increase-quantity"
+              title="Aumentar quantidade"
+            >
+              <span class="sr-only">Aumentar quantidade</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 8H0V6H6V0H8V6H14V8H8V14H6V8Z" fill="#101828"/>
+              </svg>
+            </button>
+          </form>
+          <button
+            type="button"
+            class="text-base-content/70 transition-colors hover:text-base-content p-3 -mr-2"
+            hx-swap="none"
+            hx-post="{{ routes.cart_item }}/{{ item.id }}/remove"
+            hx-indicator=".spinner-{{ item.id }}"
+            hx-disabled-elt="button, input"
+            data-testid="li-minicart-item-remove"
+            title="Remover item"
+          >
+            <span class="sr-only">Remover item</span>
+            <svg class="fill-current size-4" role="img" aria-hidden="true">
+              <use xlink:href="/static/img/fontawesome-solid.svg#trash" href="/static/img/fontawesome-solid.svg#trash"></use>
+            </svg>
+          </button>
+          <span class="htmx-indicator spinner-{{ item.id }} opacity-0 absolute inset-0 bg-white/50 flex items-center justify-end">
+            <svg class="fill-current size-4 animate-spin mr-5.5" role="img" aria-hidden="true">
+              <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
+            </svg>
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  {% if readonly %}</div>{% endif %}
+</li>
