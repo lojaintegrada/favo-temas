@@ -33,26 +33,41 @@ jobs:
           tag="$THEME@$VERSION"
 
           [ -f "$log" ] || { echo "::error::$log não existe"; exit 1; }
-          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+
+          # o remote é a autoridade: o checkout raso pode não ter as tags
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
             echo "::error::a tag $tag já existe"; exit 1
           fi
 
           # tudo entre "## Não publicado" e o próximo "## "
           notas=$(awk '/^## Não publicado/{f=1;next} /^## /{f=0} f' "$log" | sed '/^[[:space:]]*$/d')
-          [ -n "$notas" ] || { echo "::error file=$log::nada sob '## Não publicado' — release sem changelog não passa"; exit 1; }
 
-          awk -v v="$VERSION" -v d="$(date +%F)" \
-            '{print} /^## Não publicado$/{print ""; print "## " v " — " d}' \
-            "$log" > "$log.tmp" && mv "$log.tmp" "$log"
-          echo "$VERSION" > "$dir/VERSION"
+          if [ -n "$notas" ]; then
+            awk -v v="$VERSION" -v d="$(date +%F)" \
+              '{print} /^## Não publicado$/{print ""; print "## " v " — " d}' \
+              "$log" > "$log.tmp" && mv "$log.tmp" "$log"
+            echo "$VERSION" > "$dir/VERSION"
 
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$log" "$dir/VERSION"
-          git commit -m "release: $tag"
-          git tag "$tag"
-          git push --follow-tags
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "$log" "$dir/VERSION"
+            git commit -m "release: $tag"
+            git push
+          else
+            # uma execução anterior pode ter promovido o changelog e falhado depois:
+            # nesse caso as notas já estão na seção da versão, e não há o que commitar
+            notas=$(awk -v h="## $VERSION — " 'index($0,h)==1{f=1;next} /^## /{f=0} f' "$log" | sed '/^[[:space:]]*$/d')
+            [ -n "$notas" ] || { echo "::error file=$log::nada sob '## Não publicado' — release sem changelog não passa"; exit 1; }
+            echo "::notice::changelog já estava promovido para $VERSION; seguindo direto para a Release"
+          fi
 
           zip="$THEME-$VERSION.zip"
           git archive --format=zip --prefix="$THEME/" -o "$zip" "HEAD:$dir"
-          gh release create "$tag" "$zip" --title "$THEME $VERSION" --notes "$notas"
+
+          # a tag é criada pelo gh, apontando para o commit de release.
+          # NÃO usar `git tag` + `git push --follow-tags`: tag lightweight não sobe,
+          # o commit vai e a tag fica só no runner.
+          gh release create "$tag" "$zip" \
+            --target "$(git rev-parse HEAD)" \
+            --title "$THEME $VERSION" \
+            --notes "$notas"
