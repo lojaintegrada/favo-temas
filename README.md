@@ -37,8 +37,8 @@ A versão **não** é decidida aqui — ela vem da CLI do Favo.
 2. Publique pela CLI do Favo e anote o número de versão que ela devolver.
 3. Vá em **Actions → Release theme → Run workflow** e informe o tema e a versão.
 
-A Action promove o bloco `## Não publicado` para `## <versão> — <data>`, grava o arquivo `VERSION`, cria a tag `<tema>@<versão>` e publica a Release com o zip anexado.
+A Action promove o bloco `## Não publicado` para `## <versão> — <data>`, grava o `VERSION`, cria a tag `<tema>@<versão>`, empacota via `git archive` e publica a Release com o `.zip` anexado.
 
-Se não houver nada sob `## Não publicado`, a Action falha de propósito — release sem changelog não passa.
+Se não houver nada sob `## Não publicado`, ela falha de propósito — release sem changelog não passa.
 
-Há uma segunda trava, antes: PR que mexe em `themes/<nome>/` sem atualizar o `CHANGELOG.md` daquele tema não passa no check. Para mudanças que genuinamente não merecem entrada (typo em doc, refactor invisível), aplique o label `sem-changelog` no PR.
+Quem trabalha por PR tem um aviso antes disso: o check `Changelog` falha quando `themes/<nome>/` muda sem que o `CHANGELOG.md` daquele tema mude junto. Ele não bloqueia o merge, e commit direto na `main` não passa por ele. O label `sem-changelog` dispensa.

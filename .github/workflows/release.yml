@@ -33,12 +33,13 @@ jobs:
           tag="$THEME@$VERSION"
 
           [ -f "$log" ] || { echo "::error::$log não existe"; exit 1; }
-          git rev-parse -q --verify "refs/tags/$tag" >/dev/null \
-            && { echo "::error::tag $tag já existe"; exit 1; } || true
+          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            echo "::error::a tag $tag já existe"; exit 1
+          fi
 
           # tudo entre "## Não publicado" e o próximo "## "
-          notes=$(awk '/^## Não publicado/{f=1;next} /^## /{f=0} f' "$log" | sed '/^[[:space:]]*$/d')
-          [ -n "$notes" ] || { echo "::error::nada sob '## Não publicado' em $log"; exit 1; }
+          notas=$(awk '/^## Não publicado/{f=1;next} /^## /{f=0} f' "$log" | sed '/^[[:space:]]*$/d')
+          [ -n "$notas" ] || { echo "::error file=$log::nada sob '## Não publicado' — release sem changelog não passa"; exit 1; }
 
           awk -v v="$VERSION" -v d="$(date +%F)" \
             '{print} /^## Não publicado$/{print ""; print "## " v " — " d}' \
@@ -54,4 +55,4 @@ jobs:
 
           zip="$THEME-$VERSION.zip"
           git archive --format=zip --prefix="$THEME/" -o "$zip" "HEAD:$dir"
-          gh release create "$tag" "$zip" --title "$THEME $VERSION" --notes "$notes"
+          gh release create "$tag" "$zip" --title "$THEME $VERSION" --notes "$notas"

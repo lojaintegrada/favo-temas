@@ -1,5 +1,7 @@
 name: Changelog
 
+# Roda só em pull request. Não bloqueia o merge — a main não exige status check.
+# Serve de lembrete: fica vermelho quando um tema muda sem entrada no changelog.
 on:
   pull_request:
     types: [opened, synchronize, reopened, labeled, unlabeled]

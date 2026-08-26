@@ -16,7 +16,7 @@ fora daqui. Aqui é só fonte da verdade + distribuição.
 ```
 themes/<nome>/               # um tema por pasta, autocontido
 .claude/skills/changelog/    # rascunha entradas de changelog a partir do diff
-.github/workflows/release.yml
+.github/workflows/
 ```
 
 ### O que este repo exige de um tema
@@ -49,10 +49,13 @@ Fluxo de release:
 1. Mudanças vão para `## Não publicado` no `CHANGELOG.md` do tema (use a skill `changelog`).
 2. Usuário publica pela CLI e recebe o número.
 3. **Actions → Release theme** (dispatch manual) faz o resto: promove o changelog, grava
-   `VERSION`, commita, cria a tag `<tema>@<versão>`, zipa via `git archive` e publica a Release.
+   `VERSION`, commita, cria a tag `<tema>@<versão>`, empacota via `git archive` e publica
+   a Release com o zip.
 
-Não rode esse fluxo por conta própria. A Action é disparada pelo usuário.
-A Action não builda nada — ela empacota o que está commitado.
+A Action se recusa a publicar se não houver nada sob `## Não publicado`.
+Ela **não builda nada** — empacota o que está commitado.
+
+Não rode esse fluxo por conta própria. Quem dispara é o usuário.
 
 ## Regras ao mexer num tema
 
@@ -61,7 +64,8 @@ A Action não builda nada — ela empacota o que está commitado.
   release precisa funcionar sem build. Não mande para o `.gitignore`.
 - Não edite arquivo gerado à mão. Edite a fonte e rode o build daquele tema.
 - Não edite seções já publicadas do `CHANGELOG.md`, nem o `VERSION`.
-- PR que altera `themes/<x>/` sem tocar em `themes/<x>/CHANGELOG.md` é bloqueado pelo
-  workflow `Changelog`. Escape: label `sem-changelog` no PR.
+- O workflow `Changelog` roda só em PR: falha quando `themes/<x>/` muda sem que
+  `themes/<x>/CHANGELOG.md` mude junto. Não bloqueia o merge — a `main` não exige status
+  check — e commit direto na `main` não passa por ele. Escape: label `sem-changelog`.
 - Hooks `{% appsection ... %}` são pontos de extensão da plataforma, usados por apps
   externas. Não remova nem renomeie.
