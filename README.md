@@ -4,9 +4,11 @@ Temas para o Favo. Cada tema vive em `themes/<nome>/` e é publicado como um `.z
 
 ## Temas
 
-| Tema | Versão | Download |
-|------|--------|----------|
-| [litheme](themes/litheme) | — | _(sem release ainda)_ |
+| Tema | Descrição | Releases |
+|------|-----------|----------|
+| [litheme](themes/litheme) | Liquid + Tailwind 4 / DaisyUI, HTMX e Web Components. Sem framework, sem bundler. | [ver releases](../../releases?q=litheme) |
+
+Cada release traz o `.zip` do tema pronto, com o arquivo `VERSION` dentro. As tags seguem o formato `<tema>@<versão>`.
 
 ## Anatomia de um tema
 

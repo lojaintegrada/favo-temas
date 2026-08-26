@@ -69,5 +69,5 @@ jobs:
           # o commit vai e a tag fica só no runner.
           gh release create "$tag" "$zip" \
             --target "$(git rev-parse HEAD)" \
-            --title "$THEME $VERSION" \
+            --title "$tag" \
             --notes "$notas"
