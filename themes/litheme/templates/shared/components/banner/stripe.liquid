@@ -47,7 +47,7 @@
                 </p>
               {% when "installment" %}
                 <p class="{{ stripe_class }}">
-                  Pague em até {{ payment_installment.installment_number }}x {% if payment_installment.no_rate %}sem juros {% endif %}no cartão
+                  Pague em até {{ payment_installment.installment_number }}x {% if payment_installment.no_rate %}sem juros {% endif %}
                 </p>
               {% when "freight" %}
                 {% assign free_freight_min_value = free_freight_conditions[0].min_value %}
