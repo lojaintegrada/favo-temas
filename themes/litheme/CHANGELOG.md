@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+- HTMX atualizado da versão 2.0.8 para a 4.0.0.
+
 ## 70 — 2026-11-03
 
 - Lojas com preço restrito a clientes logados: para visitantes sem login, o preço aparece como "R$ \*\*\*" no card e na página de produto, sem preço riscado, parcelamento, desconto à vista nem badge de desconto. Antes, o valor podia aparecer em branco ou como R$ 0,00.

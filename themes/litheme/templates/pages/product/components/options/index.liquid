@@ -8,7 +8,7 @@
       id="prod-variations-selector-form"
       class="relative flex flex-col gap-4 {% unless target_id == 'floating-product-buy-button-container' %}border-t border-base-200 py-5{% endunless %} transition-opacity duration-100"
       hx-get
-      hx-params="selected_variation[]"
+      data-send-only="selected_variation[]"
       hx-trigger="li-prod-options-selected delay:200ms"
       {% if target_id %}
         hx-target="#{{ target_id }}"
@@ -21,8 +21,8 @@
         hx-swap="outerHTML"
       {% endif %}
       hx-indicator="#prod-variations-selector-spinner"
-      hx-on::before-request="this.classList.add('opacity-40', 'pointer-events-none')"
-      hx-on::after-request="this.classList.remove('opacity-40', 'pointer-events-none')"
+      hx-on::before:request="this.classList.add('opacity-40', 'pointer-events-none')"
+      hx-on::after:request="this.classList.remove('opacity-40', 'pointer-events-none')"
 
       onsubmit="event.preventDefault()"
     >

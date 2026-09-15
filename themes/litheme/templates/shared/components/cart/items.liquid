@@ -48,7 +48,7 @@
               hx-swap="none"
               hx-trigger="submit"
               hx-indicator=".spinner-{{ item.id }}"
-              hx-disabled-elt="button, input"
+              hx-disable="button, input"
               hx-sync="this:abort"
             {% endunless %}
           >
@@ -144,7 +144,7 @@
             hx-swap="none"
             hx-post="{{ routes.cart_item }}/{{ item.id }}/remove"
             hx-indicator=".spinner-{{ item.id }}"
-            hx-disabled-elt="button, input"
+            hx-disable="button, input"
             data-testid="li-minicart-item-remove"
             title="Remover item"
           >

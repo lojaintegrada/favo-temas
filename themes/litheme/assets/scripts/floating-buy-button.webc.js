@@ -98,18 +98,19 @@ if (!customElements.get('floating-buy-button')) {
       });
 
       // Close after adding to cart
-      document.addEventListener('htmx:afterRequest', (event) => {
-        if (event.detail.successful && event.detail.xhr.responseURL.includes('/add')) {
+      document.addEventListener('htmx:after:request', (event) => {
+        const ctx = event.detail.ctx;
+        if (ctx.response?.status < 400 && ctx.request?.action?.includes('/add')) {
           this.closeBottomSheet();
           window.dispatchEvent(new CustomEvent('open-minicart'));
         }
       });
 
       // Re-observe button after HTMX updates
-      document.addEventListener('htmx:afterSwap', (event) => {
+      document.addEventListener('htmx:after:swap', (event) => {
         // Se o swap foi no product-summary, reconectar observer
-        if (event.detail.target.id === 'product-summary' ||
-          event.detail.target.closest('#product-summary')) {
+        const target = event.detail.ctx.target;
+        if (target?.id === 'product-summary' || target?.closest('#product-summary')) {
           this.reconnectObserver();
         }
       });

@@ -55,7 +55,7 @@ if (!customElements.get('segmented-price-cep')) {
      */
     _setupEventListeners() {
       this.openButton?.addEventListener('click', this._handleOpenClick);
-      this.form?.addEventListener('htmx:afterRequest', this._handleHtmxAfterRequest);
+      this.form?.addEventListener('htmx:after:request', this._handleHtmxAfterRequest);
     }
 
     /**
@@ -64,7 +64,7 @@ if (!customElements.get('segmented-price-cep')) {
      */
     _cleanupEventListeners() {
       this.openButton?.removeEventListener('click', this._handleOpenClick);
-      this.form?.removeEventListener('htmx:afterRequest', this._handleHtmxAfterRequest);
+      this.form?.removeEventListener('htmx:after:request', this._handleHtmxAfterRequest);
     }
 
     /**
@@ -165,7 +165,7 @@ if (!customElements.get('segmented-price-cep')) {
     _handleHtmxAfterRequest(event) {
       const errorEl = this.querySelector('.segmented-price-error');
 
-      if (event.detail.successful) {
+      if (event.detail.ctx.response?.status < 400) {
         errorEl?.classList.add('hidden');
         location.reload();
       } else {

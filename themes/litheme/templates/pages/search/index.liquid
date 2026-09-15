@@ -10,7 +10,7 @@
   </div>
   {% if data.category.description or data.brand.description %}
     <expandable-content class="block overflow-hidden max-h-40 mb-5">
-      <div class="prose max-w-full mt-5" hx-disable>
+      <div class="prose max-w-full mt-5" hx-ignore>
         {{ data.category.description | default: data.brand.description | sanitize | raw }}
       </div>
     </expandable-content>
