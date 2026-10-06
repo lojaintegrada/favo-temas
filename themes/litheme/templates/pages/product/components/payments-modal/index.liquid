@@ -48,15 +48,27 @@
             </span>
           {% endif %}
           <div class="w-full sm:grid grid-flow-row-dense grid-cols-2 text-base text-base-content font-medium gap-2">
-            {% assign half_size = payment.installments_factor.size | divided_by: 2.0 | ceil %}
+            {%- assign half_size = payment.installments_factor.size | divided_by: 2.0 | ceil -%}
+            {%- assign last_factor = payment.installments_factor | last -%}
             {% for installment_factor in payment.installments_factor %}
-              {% assign is_first_half = forloop.index <= half_size %}
-              <p class="{% if is_first_half %}col-start-1{% else %}col-start-2{% endif %}">
-                {{ installment_factor.installments }}x de {{ installment_factor.value | format_number: "C" }}
-                {% if installment_factor.interest_free %} sem juros{% endif %}
-              </p>
+              {%- if payment.code == "proxy-pagaleve-v1-redirect" -%}
+                <p class="col-span-2 text-sm">
+                  {{ installment_factor.installments }}ª parcela: {{ last_factor.value | format_number: "C" }}
+                  {% if installment_factor.installments == 1 %}
+                    no ato da compra
+                  {% else %}
+                    após {{ installment_factor.installments | minus: 1 | times: 15 }} dias
+                  {% endif %}
+                </p>
+              {%- else -%}
+                {% assign is_first_half = forloop.index <= half_size %}
+                <p class="{% if is_first_half %}col-start-1{% else %}col-start-2{% endif %} text-sm">
+                  {{ installment_factor.installments }}x de {{ installment_factor.value | format_number: "C" }}
+                  {% if installment_factor.interest_free %} sem juros{% endif %}
+                </p>
+              {%- endif -%}
             {% else %}
-              <p class="col-span-2">
+              <p class="col-span-2 text-sm">
                 1x de {{ payment.total_price | format_number: "C" }}
               </p>
             {% endfor %}
