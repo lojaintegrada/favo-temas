@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+## 65 — 2026-10-06
+
 - Pagamento com Pagaleve no modal de formas de pagamento agora mostra cada parcela com o mesmo valor e o prazo: a 1ª no ato da compra e as demais a cada 15 dias.
 - Parcelas no modal de formas de pagamento aparecem com texto menor.
 - Tarja de parcelamento no banner deixou de dizer "no cartão", já que o parcelamento pode valer para outros meios de pagamento.
