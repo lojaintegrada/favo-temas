@@ -112,13 +112,9 @@
                   "type": "container",
                   "components": [
                     {
-                      "data": {
-                        "buy_together": {
-                          "function": "get_buy_together"
-                        }
-                      },
                       "template": "pages/product/components/buy-together/index.liquid",
                       "properties": {
+                        "async": true,
                         "in_page_placement": "beforeProduct"
                       }
                     },
@@ -126,13 +122,9 @@
                       "template": "pages/product/components/description/index.liquid"
                     },
                     {
-                      "data": {
-                        "buy_together": {
-                          "function": "get_buy_together"
-                        }
-                      },
                       "template": "pages/product/components/buy-together/index.liquid",
                       "properties": {
+                        "async": true,
                         "in_page_placement": "afterProduct"
                       }
                     },
