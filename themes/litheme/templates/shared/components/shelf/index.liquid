@@ -10,7 +10,9 @@
   - slides_per_view_md: Número de slides em tablet 768px+ (default: 4)
   - slides_per_view_lg: Número de slides em desktop 1024px+ (default: 5)
   - show_title: Boolean para mostrar título (default: true se title existir)
-  
+  - list_id: Identificador estável da lista para o evento view_item_list (ex.: 'highlights')
+  - list_name: Nome da lista nos relatórios (default: title)
+
   Uso:
   {% render 'shared/components/shelf/index', products: array_de_produtos, title: 'Título' %}
   {% render 'shared/components/shelf/index', shelf_result: data.shelf_result, slides_per_view: 2, slides_per_view_md: 3, slides_per_view_lg: 4 %}
@@ -33,6 +35,7 @@
 {%- assign shelf_title = title | default: props.title -%}
 {%- assign shelf_type = shelf_type | default: props.shelf_type | default: 'carousel' -%}
 {%- assign show_title = show_title | default: props.show_title | default: true -%}
+{%- assign list_name = list_name | default: shelf_title -%}
 {%- assign slides_per_view = slides_per_view | default: props.slides_per_view | default: 2.2 | plus: 0.0 -%}
 {%- assign slides_per_view_md = slides_per_view_md | default: props.slides_per_view_md | default: 4 | plus: 0.0 -%}
 {%- assign slides_per_view_lg = slides_per_view_lg | default: props.slides_per_view_lg | default: 5 | plus: 0.0 -%}
@@ -48,7 +51,12 @@
 {%- endif -%}
 
 {%- if shelf_products.size > 0 -%}
-  <div class="container flex flex-col gap-6 py-4 px-0 md:px-4 content-auto-[500px]">
+  <div
+    class="container flex flex-col gap-6 py-4 px-0 md:px-4 content-auto-[500px]"
+    data-metrics="view_item_list"
+    data-mt-list-id="{{ list_id }}"
+    data-mt-list-name="{{ list_name }}"
+  >
     {%- if shelf_type == 'carousel' -%}
       <carousel-embla 
         data-slides-per-view="{{ slides_per_view | replace: ',', '.' }}"
