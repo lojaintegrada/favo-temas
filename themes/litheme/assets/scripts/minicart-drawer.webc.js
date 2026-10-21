@@ -74,7 +74,7 @@ if (!customElements.get('minicart-drawer')) {
         }, 3000);
       } else {
         document.querySelector('[data-id="minicart-summary"]')
-          ?.addEventListener('htmx:afterProcessNode', () => this.refreshMinicartTotalItems(), { once: true });
+          ?.addEventListener('htmx:after:init', () => this.refreshMinicartTotalItems(), { once: true });
       }
     }
 
