@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+## 67 — 2026-10-21
+
 - Número de itens do carrinho no cabeçalho é atualizado sozinho quando fica mais de 5 minutos sem atualização ou quando a aba volta a ficar visível. Antes, ele podia mostrar itens de um carrinho que já estava vazio.
 
 ## 66 — 2026-10-21
