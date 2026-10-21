@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+## 66 — 2026-10-21
+
 - Vitrines da home, recomendações do produto, resultados de categoria, marca e busca e sugestões do carrinho passam a enviar o evento de visualização de lista de produtos (`view_item_list`) para o Google Analytics e o GTM, com preço e posição de cada produto.
 - Cliques em produtos dessas listas passam a informar a lista de origem e a posição do produto.
 - Evento de visualização do compre junto passa a enviar o preço dos produtos, que antes chegava vazio.
