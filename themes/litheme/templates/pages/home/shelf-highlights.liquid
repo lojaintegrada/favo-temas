@@ -1,0 +1,8 @@
+{%- if layout_attributes.render.shelf.highlights != false and data.shelf_result.products.size > 0 -%}
+  {% render 'shared/components/shelf/index',
+    products: data.shelf_result.products,
+    title: props.title,
+    shelf_type: 'carousel',
+    list_id: 'highlights'
+  %}
+{%- endif -%}

@@ -128,7 +128,7 @@ if (!customElements.get('minicart-drawer')) {
     }
 
     /**
-     * Handles localStorage changes made by other tabs
+     * Handles localStorage changes made by other browser windows
      * Re-renders the total items when the count changes
      * @param {StorageEvent} event - The storage event
      */
@@ -138,7 +138,7 @@ if (!customElements.get('minicart-drawer')) {
 
     /**
      * Handles the document visibility change
-     * Refreshes the total items when the tab becomes visible again
+     * Refreshes the total items when the page becomes visible again
      */
     handleVisibilityChange() {
       if (document.visibilityState === 'visible') this.refreshMinicartTotalItems();

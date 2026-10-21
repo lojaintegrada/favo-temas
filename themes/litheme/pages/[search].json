@@ -3,10 +3,8 @@
     "body": {
       "components": [
         {
-          "template": "shared/components/banner/stripe.liquid",
-          "properties": {
-            "async": true
-          }
+          "type": "template",
+          "template": "shared/components/banner/stripe.liquid"
         },
         {
           "tag": "header",
@@ -41,7 +39,8 @@
           "type": "container",
           "components": [
             {
-              "template": "shared/components/banner/index.liquid",
+              "type": "template",
+              "template": "shared/components/banner/full.liquid",
               "data": {
                 "banners": {
                   "args": {
@@ -50,13 +49,11 @@
                   },
                   "function": "get_banners"
                 }
-              },
-              "properties": {
-                "position": "full"
               }
             },
             {
-              "template": "shared/components/banner/index.liquid",
+              "type": "template",
+              "template": "shared/components/banner/stripe-banners.liquid",
               "data": {
                 "banners": {
                   "args": {
@@ -65,13 +62,11 @@
                   },
                   "function": "get_banners"
                 }
-              },
-              "properties": {
-                "position": "stripe"
               }
             },
             {
-              "template": "shared/components/banner/index.liquid",
+              "type": "template",
+              "template": "shared/components/banner/mini.liquid",
               "data": {
                 "banners": {
                   "args": {
@@ -80,22 +75,18 @@
                   },
                   "function": "get_banners"
                 }
-              },
-              "properties": {
-                "position": "mini"
               }
             },
             {
-              "template": "shared/components/breadcrumb/index.liquid",
-              "properties": {
-                "position": "center"
-              }
+              "type": "template",
+              "template": "shared/components/breadcrumb/index.liquid"
             },
             {
               "template": "pages/search/index.liquid"
             },
             {
-              "template": "shared/components/banner/index.liquid",
+              "type": "template",
+              "template": "shared/components/banner/showcase.liquid",
               "data": {
                 "banners": {
                   "args": {
@@ -104,9 +95,6 @@
                   },
                   "function": "get_banners"
                 }
-              },
-              "properties": {
-                "position": "showcase"
               }
             }
           ]
@@ -162,8 +150,8 @@
     }
   },
   "path": "/[search]",
-  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
-  "_version": "3",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/pages-v4.json",
+  "_version": "4",
   "global_data": {
     "search_result": {
       "args": {

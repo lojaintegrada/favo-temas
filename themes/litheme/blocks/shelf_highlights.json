@@ -1,0 +1,13 @@
+{
+  "name": "shelf_highlights",
+  "description": "Vitrine de produtos em destaque na home.",
+  "template": "pages/home/shelf-highlights",
+  "allowed_pages": ["/"],
+  "required_functions": ["get_products"],
+  "properties_schema": {
+    "type": "object",
+    "properties": {
+      "title": { "type": "string", "title": "Título", "default": "Destaques" }
+    }
+  }
+}

@@ -2,6 +2,9 @@
 
 ## Não publicado
 
+- Páginas do tema passam para o formato v4. Nada muda na loja para o cliente final.
+- As vitrines da home (Destaques, Lançamentos e Mais Vendidos) passam a ser blocos, com o título configurável.
+
 ## 68 — 2026-10-28
 
 - Painéis de calcular frete, cupom, avise-me, produto sob consulta e compra rápida, o botão sobre a galeria do produto, as bandeiras de pagamento do rodapé e a mensagem de sucesso da newsletter passam a usar a cor de superfície do tema em vez de branco fixo. Na paleta padrão nada muda; em lojas com cores personalizadas, essas áreas ficam na mesma cor dos menus laterais e do carrinho.

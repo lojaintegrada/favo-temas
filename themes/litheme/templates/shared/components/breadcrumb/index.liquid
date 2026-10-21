@@ -1,4 +1,8 @@
-{%- assign position = props.position | default: 'left' -%}
+{%- if ctx.location == 'product' -%}
+  {%- assign position = 'col' -%}
+{%- elsif ctx.location == 'category' or ctx.location == 'search' -%}
+  {%- assign position = 'center' -%}
+{%- endif -%}
 {%- assign categories_tree = data.product.main_category -%}
 {% unless categories_tree %}
   {%- assign categories_tree = data.category.parent_tree -%}

@@ -32,6 +32,7 @@ npm run watch:css   # rebuild automático ao salvar
 
 ```text
 pages/         # configuração de páginas em JSON: quais componentes carregar + dados
+blocks/        # componentes com configuração que o lojista pode mudar (JSON Schema)
 templates/
   shared/      # componentes reutilizáveis (banner, header, footer, product-card…)
   pages/       # templates por página (home, product, search)
@@ -60,6 +61,27 @@ externas — ex: `{% appsection shelf_after_product_title %}`. Não remova nem r
 
 **Pages JSON** (`pages/*.json`) definem quais componentes carregar em cada página e quais
 dados injetar. Ao criar uma página nova, crie o JSON correspondente e mapeie os templates.
+As páginas estão no formato `_version: "4"`, que **não aceita `properties` em componente
+`template`**.
+
+**Blocos** (`blocks/*.json`) são para o que o **lojista** configura pelo painel (ex.: título
+da vitrine). Cada prop do schema vira um campo no painel, então só entra no schema o que o
+lojista pode mudar. O bloco aponta para o template com o mesmo caminho usado nas páginas
+(`shared/components/...`, sem `templates/` nem `.liquid`). Não use `templates/blocks/`. A
+plataforma valida as props no `push`/`sync` e entrega `props` com os defaults aplicados,
+então não use `| default:` para uma prop que está no schema. O `data` continua declarado
+na página.
+
+**Decisão do tema não é prop.** Modo esqueleto/conteúdo, slot e layout por tipo de página
+ficam no próprio template:
+
+- esqueleto que carrega via HTMX × conteúdo do partial → `ctx.url.path contains '/partial/'`
+  (tarja de condições, recomendações, avaliações, aviso de cookies);
+- variação por tipo de página → `ctx.location` (`product`, `cart`, `page`, `category`,
+  `search`…), como na barra flutuante e no breadcrumb;
+- variação dentro da mesma página → arquivo irmão que faz `render` com o valor fixo
+  (`banner/full.liquid`, `banner/showcase-odd.liquid`,
+  `buy-together/before-product.liquid`, `home/shelf-newest.liquid`).
 
 **CSS** usa as variáveis de tema do DaisyUI (`--color-primary`, `--color-base-100`).
 Personalize em `theme.css` — não sobrescreva utilitários do DaisyUI dentro dos templates.

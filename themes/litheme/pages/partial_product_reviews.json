@@ -1,22 +1,19 @@
 {
-  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/pages-v4.json",
   "partial": {
     "path": "/partial/product/reviews",
     "components": [
       {
+        "type": "template",
+        "template": "pages/product/components/reviews/index.liquid",
         "data": {
           "reviews": {
             "function": "get_product_reviews"
           }
-        },
-        "type": "template",
-        "template": "pages/product/components/reviews/index.liquid",
-        "properties": {
-          "content": "reviews"
         }
       }
     ]
   },
-  "_version": "3",
+  "_version": "4",
   "global_data": {}
 }

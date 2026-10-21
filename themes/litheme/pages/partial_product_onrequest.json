@@ -1,15 +1,14 @@
 {
-  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/pages-v4.json",
   "partial": {
     "path": "/partial/product/onrequest",
     "components": [
       {
         "type": "template",
-        "template": "pages/product/components/upon-request/upon-request-sheet.liquid",
-        "properties": {}
+        "template": "pages/product/components/upon-request/upon-request-sheet.liquid"
       }
     ]
   },
-  "_version": "3",
+  "_version": "4",
   "global_data": {}
 }

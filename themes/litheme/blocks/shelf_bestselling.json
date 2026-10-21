@@ -1,0 +1,13 @@
+{
+  "name": "shelf_bestselling",
+  "description": "Vitrine dos produtos mais vendidos na home.",
+  "template": "pages/home/shelf-bestselling",
+  "allowed_pages": ["/"],
+  "required_functions": ["get_products"],
+  "properties_schema": {
+    "type": "object",
+    "properties": {
+      "title": { "type": "string", "title": "Título", "default": "Mais Vendidos" }
+    }
+  }
+}

@@ -1,6 +1,7 @@
-{% assign buy_together = data.buy_together %}
+{%- comment -%} renderizado por before-product/after-product (slot fixo) ou direto pelo partial (sem slot) {%- endcomment -%}
+{% assign buy_together = buy_together | default: data.buy_together %}
 {% if buy_together and buy_together.products.size > 1 %}
-  {% if props.in_page_placement == null or buy_together.position_in_page == props.in_page_placement %}
+  {% if in_page_placement == null or buy_together.position_in_page == in_page_placement %}
     {%- if ctx.url.querystring.buy_together_id and ctx.url.querystring.buy_together_id != buy_together.id -%}
       <script type="text/javascript" id="toast-trigger" hx-swap-oob="true">
         if (typeof window.toast === 'function') {

@@ -3,10 +3,8 @@
     "body": {
       "components": [
         {
-          "template": "shared/components/banner/stripe.liquid",
-          "properties": {
-            "async": true
-          }
+          "type": "template",
+          "template": "shared/components/banner/stripe.liquid"
         },
         {
           "tag": "header",
@@ -19,10 +17,7 @@
             },
             {
               "type": "template",
-              "template": "shared/components/header/components/floating-bar/index.liquid",
-              "properties": {
-                "show_back_button": true
-              }
+              "template": "shared/components/header/components/floating-bar/index.liquid"
             },
             {
               "type": "template",
@@ -44,7 +39,8 @@
           "type": "container",
           "components": [
             {
-              "template": "shared/components/banner/index.liquid",
+              "type": "template",
+              "template": "shared/components/banner/full.liquid",
               "data": {
                 "banners": {
                   "args": {
@@ -53,13 +49,11 @@
                   },
                   "function": "get_banners"
                 }
-              },
-              "properties": {
-                "position": "full"
               }
             },
             {
-              "template": "shared/components/banner/index.liquid",
+              "type": "template",
+              "template": "shared/components/banner/stripe-banners.liquid",
               "data": {
                 "banners": {
                   "args": {
@@ -68,13 +62,11 @@
                   },
                   "function": "get_banners"
                 }
-              },
-              "properties": {
-                "position": "stripe"
               }
             },
             {
-              "template": "shared/components/banner/index.liquid",
+              "type": "template",
+              "template": "shared/components/banner/mini.liquid",
               "data": {
                 "banners": {
                   "args": {
@@ -83,9 +75,6 @@
                   },
                   "function": "get_banners"
                 }
-              },
-              "properties": {
-                "position": "mini"
               }
             },
             {
@@ -95,10 +84,8 @@
               "type": "container",
               "components": [
                 {
-                  "template": "shared/components/breadcrumb/index.liquid",
-                  "properties": {
-                    "position": "col"
-                  }
+                  "type": "template",
+                  "template": "shared/components/breadcrumb/index.liquid"
                 },
                 {
                   "template": "pages/product/components/images/index.liquid"
@@ -112,35 +99,29 @@
                   "type": "container",
                   "components": [
                     {
+                      "type": "template",
+                      "template": "pages/product/components/buy-together/before-product.liquid",
                       "data": {
                         "buy_together": {
                           "function": "get_buy_together"
                         }
-                      },
-                      "template": "pages/product/components/buy-together/index.liquid",
-                      "properties": {
-                        "in_page_placement": "beforeProduct"
                       }
                     },
                     {
                       "template": "pages/product/components/description/index.liquid"
                     },
                     {
+                      "type": "template",
+                      "template": "pages/product/components/buy-together/after-product.liquid",
                       "data": {
                         "buy_together": {
                           "function": "get_buy_together"
                         }
-                      },
-                      "template": "pages/product/components/buy-together/index.liquid",
-                      "properties": {
-                        "in_page_placement": "afterProduct"
                       }
                     },
                     {
-                      "template": "pages/product/components/reviews/index.liquid",
-                      "properties": {
-                        "content": "product"
-                      }
+                      "type": "template",
+                      "template": "pages/product/components/reviews/index.liquid"
                     }
                   ]
                 }
@@ -155,13 +136,12 @@
               }
             },
             {
-              "template": "pages/product/components/recommendations/index.liquid",
-              "properties": {
-                "async": true
-              }
+              "type": "template",
+              "template": "pages/product/components/recommendations/index.liquid"
             },
             {
-              "template": "shared/components/banner/index.liquid",
+              "type": "template",
+              "template": "shared/components/banner/showcase.liquid",
               "data": {
                 "banners": {
                   "args": {
@@ -170,9 +150,6 @@
                   },
                   "function": "get_banners"
                 }
-              },
-              "properties": {
-                "position": "showcase"
               }
             }
           ]
@@ -228,7 +205,7 @@
     }
   },
   "path": "/[product]",
-  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
-  "_version": "3",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/pages-v4.json",
+  "_version": "4",
   "global_data": {}
 }

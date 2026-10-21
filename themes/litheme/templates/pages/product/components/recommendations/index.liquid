@@ -1,5 +1,5 @@
 
-{% if props.async or async %}
+{% unless ctx.url.path contains '/partial/' %}
   <div
     id="product-recommendations"
     hx-get="/partial/product/recommendations?product_id={{ data.product.id }}"
@@ -19,4 +19,4 @@
       %}
     </div>
   {%- endif -%}
-{% endif %}
+{% endunless %}
