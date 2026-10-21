@@ -25,6 +25,12 @@
   </div>
 </minicart-drawer>
 
+<div hidden
+  data-id="minicart-summary"
+  hx-get="{{ routes.cart_summary }}"
+  hx-trigger="li-minicart-summary"
+  hx-swap="none"></div>
+
 <script defer src="{% asset_url '/scripts/minicart-drawer.webc.js' %}"></script>
 <script>
   var totalItems = localStorage.getItem("li-minicart-total-items") || 0;

@@ -24,6 +24,10 @@ if (!customElements.get('minicart-drawer')) {
       this.handleToggleChange = this.handleToggleChange.bind(this);
       /** @private {Function} Bound reference to handleOpenMinicart for proper cleanup */
       this.handleOpenMinicart = this.handleOpenMinicart.bind(this);
+      /** @private {Function} Bound reference to handleStorage for proper cleanup */
+      this.handleStorage = this.handleStorage.bind(this);
+      /** @private {Function} Bound reference to handleVisibilityChange for proper cleanup */
+      this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
     }
 
     /**
@@ -65,9 +69,12 @@ if (!customElements.get('minicart-drawer')) {
 
       if (localStorage.getItem("li_should_update_minicart")) {
         setTimeout(() => {
-          this.triggerRequestMinicart();
+          this.refreshMinicartTotalItems(true);
           localStorage.removeItem("li_should_update_minicart");
         }, 3000);
+      } else {
+        document.querySelector('[data-id="minicart-summary"]')
+          ?.addEventListener('htmx:afterProcessNode', () => this.refreshMinicartTotalItems(), { once: true });
       }
     }
 
@@ -88,6 +95,8 @@ if (!customElements.get('minicart-drawer')) {
       if (this.drawerToggle)
         this.drawerToggle.addEventListener('change', this.handleToggleChange);
       window.addEventListener('open-minicart', this.handleOpenMinicart);
+      window.addEventListener('storage', this.handleStorage);
+      document.addEventListener('visibilitychange', this.handleVisibilityChange);
     }
 
     /**
@@ -98,6 +107,8 @@ if (!customElements.get('minicart-drawer')) {
       if (this.drawerToggle)
         this.drawerToggle.removeEventListener('change', this.handleToggleChange);
       window.removeEventListener('open-minicart', this.handleOpenMinicart);
+      window.removeEventListener('storage', this.handleStorage);
+      document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     }
 
     /**
@@ -117,18 +128,58 @@ if (!customElements.get('minicart-drawer')) {
     }
 
     /**
+     * Handles localStorage changes made by other tabs
+     * Re-renders the total items when the count changes
+     * @param {StorageEvent} event - The storage event
+     */
+    handleStorage(event) {
+      if (event.key === "li-minicart-total-items") this.updateMinicartTotalItems();
+    }
+
+    /**
+     * Handles the document visibility change
+     * Refreshes the total items when the tab becomes visible again
+     */
+    handleVisibilityChange() {
+      if (document.visibilityState === 'visible') this.refreshMinicartTotalItems();
+    }
+
+    /**
      * Updates the minicart total items display
      * Retrieves the count from parameter, localStorage, or defaults to 0
      *
      * @param {number} [quantity] - Optional quantity to set directly
      */
     updateMinicartTotalItems(quantity) {
-      if (quantity != null) localStorage.setItem("li-minicart-total-items", quantity);
+      if (quantity != null) {
+        localStorage.setItem("li-minicart-total-items", quantity);
+        localStorage.setItem("li-minicart-total-items-at", Date.now());
+      }
       const totalItems = quantity ?? localStorage.getItem("li-minicart-total-items") ?? 0;
       const totalItemsElements = document.querySelectorAll('[data-id="minicart-totalitems"]');
       totalItemsElements.forEach(element => {
         element.textContent = String(totalItems);
       });
+    }
+
+    /**
+     * Triggers an HTMX request to the cart summary when the stored total items is older than 5 minutes
+     * Uses the summary route, which does not fire view_cart
+     * Skips visitors that never had a cart response, unless forced
+     *
+     * @param {boolean} [force=false] - Requests regardless of the stored count and its age
+     */
+    refreshMinicartTotalItems(force = false) {
+      const summary = document.querySelector('[data-id="minicart-summary"]');
+      if (!summary || summary.classList.contains('htmx-request')) return;
+
+      if (!force) {
+        if (localStorage.getItem("li-minicart-total-items") == null) return;
+        const updatedAt = Number(localStorage.getItem("li-minicart-total-items-at"));
+        if (Date.now() - updatedAt < 5 * 60 * 1000) return;
+      }
+
+      htmx.trigger(summary, 'li-minicart-summary');
     }
 
     /**
