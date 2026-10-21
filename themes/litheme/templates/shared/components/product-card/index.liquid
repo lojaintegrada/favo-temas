@@ -43,5 +43,5 @@
     {% render 'shared/components/product-card/components/pricing', product: product %}
   </div>
   {% render 'shared/components/product-card/components/badges', product: product %}
-  <a href="{{ product.url }}" data-id="product-url" class="absolute inset-0 w-full h-full" aria-label="Ver {{ product.name }}" data-metrics="select_product" data-mt-prod-position="{{ forloop.index }}" data-mt-prod-id="{{ product.id }}" data-mt-prod-sku="{{ product.code }}" data-mt-prod-name="{{ product.name }}" data-testid="li-shelf-item"></a>
+  <a href="{{ product.url }}" data-id="product-url" class="absolute inset-0 w-full h-full" aria-label="Ver {{ product.name }}" data-metrics="select_product" data-mt-prod-position="{{ forloop.index }}" data-mt-prod-id="{{ product.id }}" data-mt-prod-sku="{{ product.code }}" data-mt-prod-name="{{ product.name }}" data-mt-prod-price="{{ product.price.base | default: product.price.selling | replace: ',', '.' }}" data-mt-prod-promotional-price="{{ product.price.selling | replace: ',', '.' }}" data-testid="li-shelf-item"></a>
 </product-card>

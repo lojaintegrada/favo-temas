@@ -1,8 +1,18 @@
 {%- assign current_page = ctx.url.querystring.page | default: 1 | plus: 0 -%}
+{%- if data.category -%}
+  {%- assign list_id = 'categoria-' | append: data.category.id -%}
+{%- elsif data.brand -%}
+  {%- assign list_id = 'marca-' | append: data.brand.id -%}
+{%- else -%}
+  {%- assign list_id = 'busca' -%}
+{%- endif -%}
 {% if data.search_result.products.size > 0 %}
   <div
     class="grid grid-cols-2 gap-5 sm:grid-cols-2 lg:grid-cols-3"
     id="li-search-results-grid"
+    data-metrics="view_item_list"
+    data-mt-list-id="{{ list_id }}"
+    data-mt-list-name="{{ data.category.name | default: data.brand.name | default: 'Busca' }}"
     {% if current_page > 1 %}
       hx-select-oob="#li-search-results-grid"
       hx-swap-oob="beforeend"
