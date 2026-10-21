@@ -1,0 +1,5 @@
+<div hx-swap-oob="beforeend:body">
+  <script>
+    document.querySelector('minicart-drawer')?.updateMinicartTotalItems({{ data.summary.item_count | default: 0 }});
+  </script>
+</div>
