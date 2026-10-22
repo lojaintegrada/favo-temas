@@ -1,5 +1,6 @@
 {% render 'shared/utils/alert-cookies' %}
 {% render 'shared/utils/toast' %}
+<div hx-get="{{ routes.messages }}" hx-trigger="load[document.cookie.includes('li_msgs=')]" hx-swap="none"></div>
 
 {% if layout_attributes.newsletter.boxnews_popup or layout_attributes.newsletter.boxnews_barra %}
   {% render 'shared/components/newsletter/popup', async: true %}
