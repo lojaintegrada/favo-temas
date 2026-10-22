@@ -75,7 +75,7 @@ na página.
 **Decisão do tema não é prop.** Modo esqueleto/conteúdo, slot e layout por tipo de página
 ficam no próprio template:
 
-- esqueleto que carrega via HTMX × conteúdo do partial → `ctx.url.path contains '/partial/'`
+- esqueleto que carrega via HTMX × conteúdo do partial → `ctx.location == 'partial'`
   (tarja de condições, recomendações, avaliações, aviso de cookies);
 - variação por tipo de página → `ctx.location` (`product`, `cart`, `page`, `category`,
   `search`…), como na barra flutuante e no breadcrumb;

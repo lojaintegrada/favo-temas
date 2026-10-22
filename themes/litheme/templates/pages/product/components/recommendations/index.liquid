@@ -1,5 +1,5 @@
 
-{% unless ctx.url.path contains '/partial/' %}
+{% unless ctx.location == 'partial' %}
   <div
     id="product-recommendations"
     hx-get="/partial/product/recommendations?product_id={{ data.product.id }}"
