@@ -14,7 +14,9 @@
   {%- assign highlight_price = class_highlight -%}
 {%- endif -%}
 
-{% if price %}
+{% if price.selling == null %}
+  <strong class="font-semibold {{ class_highlight }}" data-testid="li-product-price-hidden">R$ ***</strong>
+{% elsif price %}
   <div class="flex flex-col {{ class_container }}">
     {%- assign price_discount = price.best_payment_condition.discount -%}
     {%- assign price_installment = price.best_payment_condition.installment -%}

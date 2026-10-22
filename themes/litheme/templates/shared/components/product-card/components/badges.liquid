@@ -1,4 +1,4 @@
-{% if product.available and product.price.upon_request == false %}
+{% if product.available and product.price.upon_request == false and product.hide_price != true %}
   {%- assign discount_percentage = product.price.discount_percentage -%}
 {% endif %}
 {% comment %} Calculo de produto lançamento {% endcomment %}

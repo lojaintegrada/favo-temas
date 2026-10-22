@@ -1,11 +1,7 @@
 {%- assign product = data.product -%}
-{% if product.available %}
-  {% unless product.price.upon_request and product.selected_sku.price.upon_request %}
-    {%- assign discount_percentage = product.selected_sku.price.discount_percentage -%}
-    {%- unless product.selected_sku -%}
-      {%- assign discount_percentage = product.price.discount_percentage -%}
-    {%- endunless -%}
-  {% endunless %}
+{%- assign price = product.selected_sku.price | default: product.price -%}
+{% if product.available and price.upon_request != true and product.hide_price != true %}
+  {%- assign discount_percentage = price.discount_percentage -%}
 {% endif %}
 {%- if tag_location == 'after_title' -%}
   <div class="hidden md:flex flex-wrap gap-x-3">
