@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+- Mensagens que a loja deixa pendentes para exibir na próxima página (por exemplo, acessar `/checkout` não tendo nenhum produto adicionado) agora aparecem como notificação (toast) quando essa página carrega. Antes, o tema não mostrava essas mensagens.
+
 ## 71 — 2026-11-03
 
 - HTMX atualizado da versão 2.0.8 para a 4.0.1.
