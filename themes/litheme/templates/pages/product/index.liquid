@@ -34,7 +34,7 @@
       <div class="relative flex flex-col gap-5 md:gap-8 rounded-box">
         {% render 'pages/product/components/product-variations/index' %}
         {% assign price = selected_sku.price | default: data.product.price %}
-        {% unless price.upon_request %}
+        {% unless price.upon_request or data.product.hide_price %}
           {% if selected_sku == null or selected_sku.available %}
             {% render 'pages/product/components/shipping/index', selected_sku: selected_sku %}
           {% endif %}
