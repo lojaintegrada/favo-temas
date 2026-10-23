@@ -3,6 +3,7 @@
 ## Não publicado
 
 - Mensagens que a loja deixa pendentes para exibir na próxima página (por exemplo, acessar `/checkout` não tendo nenhum produto adicionado) agora aparecem como notificação (toast) quando essa página carrega. Antes, o tema não mostrava essas mensagens.
+- Erros ao usar o carrinho, cupom, frete e formulários agora mostram o motivo (por exemplo, "Informe o código do cupom." ou "CEP inválido."). Antes, aparecia sempre "Falha ao executar ação", e sem a cor de erro.
 
 ## 71 — 2026-11-03
 
