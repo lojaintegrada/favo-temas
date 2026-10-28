@@ -42,7 +42,7 @@
               <p class="font-semibold text-xl">{{ props.title | default: layout_attributes.newsletter.boxnews_titulo | default: 'Receba novidades e ofertas!' }}</p>
               <p class="text-base leading-5">{{ props.subtitle | default: layout_attributes.newsletter.boxnews_intro | default: 'Fique por dentro do que acontece na loja, receba cupons e ofertas direto em seu e-mail.' }}</p>
             </div>
-            <p class="newsletter-success-message text-center text-base text-success py-4 px-6 bg-white border border-base-200 rounded-md hidden" aria-hidden="true"></p>
+            <p class="newsletter-success-message text-center text-base text-success py-4 px-6 bg-neutral border border-base-200 rounded-md hidden" aria-hidden="true"></p>
             <form
               method="post"
               hx-post="{{ routes.marketing_newsletter_subscribe }}"
