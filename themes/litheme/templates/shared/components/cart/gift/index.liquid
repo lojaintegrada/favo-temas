@@ -10,7 +10,7 @@
 {%- assign gift_condition = data.cart_offers_conditions.gift -%}
 
 {% if gift_condition and gift_condition.amount_needed_for_gift > 0 %}
-  <div class="mx-6 px-4 py-3 border border-dashed border-primary rounded-box bg-gray-100 flex items-center gap-5">
+  <div class="mx-6 px-4 py-3 border border-dashed border-base-300 rounded-box bg-base-100 flex items-center gap-5">
     {%- comment -%} Ícone de presente {%- endcomment -%}
     <div class="shrink-0 mt-1">
       <svg class="fill-current size-6" role="img" aria-hidden="true">
