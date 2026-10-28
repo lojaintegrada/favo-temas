@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+## 68 — 2026-10-28
+
 - Painéis de calcular frete, cupom, avise-me, produto sob consulta e compra rápida, o botão sobre a galeria do produto, as bandeiras de pagamento do rodapé e a mensagem de sucesso da newsletter passam a usar a cor de superfície do tema em vez de branco fixo. Na paleta padrão nada muda; em lojas com cores personalizadas, essas áreas ficam na mesma cor dos menus laterais e do carrinho.
 - Ícones de atendimento, quantidade no carrinho, fechar, minha conta, busca, menu de categorias, filtros e newsletter passam a seguir a cor de texto do tema, em vez de um preto fixo.
 - O ícone de aviso do produto esgotado e do produto sob consulta segue a cor de erro do tema, e a estrela da nota das avaliações segue a cor de alerta.
