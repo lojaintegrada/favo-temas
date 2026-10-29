@@ -176,7 +176,7 @@ if (!customElements.get('carousel-embla')) {
       const containScroll = this.getAttribute('data-contain-scroll') || 'trimSnaps';
       const dragFree = this.getAttribute('data-drag-free') === 'true';
       const draggable = this.getAttribute('data-draggable') !== 'false';
-      const speed = parseInt(this.getAttribute('data-speed')) || 10;
+      const duration = parseInt(this.getAttribute('data-duration')) || 25;
 
       // Parse responsive slides per view (mobile first)
       const slidesPerView = this.getAttribute('data-slides-per-view');
@@ -202,7 +202,7 @@ if (!customElements.get('carousel-embla')) {
         containScroll,
         dragFree,
         draggable,
-        speed
+        duration
       };
 
       const autoplay = this.getAttribute('data-autoplay') === 'true';

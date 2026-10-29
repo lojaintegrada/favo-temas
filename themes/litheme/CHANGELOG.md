@@ -3,6 +3,7 @@
 ## Não publicado
 
 - Atualiza a biblioteca de estilos do tema (Tailwind CSS 4.3.3 e daisyUI 5.7.50).
+- Atualiza a biblioteca dos carrosséis (Embla Carousel 9.0.0-rc04).
 
 ## 68 — 2026-10-28
 
