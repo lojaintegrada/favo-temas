@@ -41,7 +41,7 @@
         {% else %}
           <form
             method="POST"
-            class="join relative bg-base-100 rounded-full flex items-center p-2.5 h-11"
+            class="relative bg-base-100 rounded-full flex items-center p-2.5 h-11"
             onsubmit="return false;"
             {% unless readonly %}
               hx-post="{{ routes.cart_item }}/{{ item.id }}/update"
@@ -72,7 +72,7 @@
                 <path d="M0 2V0H12V2H0Z" fill="currentColor"/>
               </svg>
             </button>
-            <div class="join-item w-5 h-6">
+            <div class="w-5 h-6">
               <input
                 class="validator text-center max-w-14 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent outline-none border-none text-sm w-full"
                 value="{{ item.quantity }}"

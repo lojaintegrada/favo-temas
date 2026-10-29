@@ -13,10 +13,10 @@
  *     "watch:css": "npx @tailwindcss/cli -i assets/style/theme.css -o assets/style/theme.min.css --watch"
  *   },
  *   "devDependencies": {
- *     "@tailwindcss/cli": "^4.3.1",
- *     "@tailwindcss/typography": "^0.5.19",
- *     "daisyui": "^5.5.23",
- *     "tailwindcss": "^4.3.1"
+ *     "@tailwindcss/cli": "^4.3.3",
+ *     "@tailwindcss/typography": "^0.5.20",
+ *     "daisyui": "^5.7.50",
+ *     "tailwindcss": "^4.3.3"
  *   }
  * }
  * ```

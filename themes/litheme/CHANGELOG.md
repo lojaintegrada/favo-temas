@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+- Atualiza a biblioteca de estilos do tema (Tailwind CSS 4.3.3 e daisyUI 5.7.50).
+
 ## 68 — 2026-10-28
 
 - Painéis de calcular frete, cupom, avise-me, produto sob consulta e compra rápida, o botão sobre a galeria do produto, as bandeiras de pagamento do rodapé e a mensagem de sucesso da newsletter passam a usar a cor de superfície do tema em vez de branco fixo. Na paleta padrão nada muda; em lojas com cores personalizadas, essas áreas ficam na mesma cor dos menus laterais e do carrinho.
