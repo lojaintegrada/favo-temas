@@ -53,7 +53,7 @@ em `PascalCase extends HTMLElement`, configuração via atributos `data-*`
 `attributeChangedCallback()`.
 
 **Libs de terceiros** vão minificadas em `assets/scripts/libs/`, com a versão no nome do
-arquivo (`htmx-4-0-0.min.js`).
+arquivo (`htmx-4-0-1.min.js`).
 
 **`data-send-only`** é do tema, não do HTMX. Um `<form>` sempre serializa todos os seus
 inputs; esse atributo lista, separado por vírgula, quais devem sobreviver. Um listener de

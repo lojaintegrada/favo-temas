@@ -2,7 +2,7 @@
 
 ## Não publicado
 
-- HTMX atualizado da versão 2.0.8 para a 4.0.0.
+- HTMX atualizado da versão 2.0.8 para a 4.0.1.
 
 ## 70 — 2026-11-03
 
