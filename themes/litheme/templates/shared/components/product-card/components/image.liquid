@@ -16,7 +16,7 @@
       {% if forloop.first %}fetchpriority="high"{% endif %}
     />
   </div>
-  {%- if product.available and product.price.upon_request == false -%}
+  {%- if product.available and product.price.upon_request == false and product.hide_price != true -%}
     <span class="absolute z-1 right-1 bottom-1 border border-base-300 rounded-full transition-transform hover:scale-110">
       <a
         href="{{ product.url }}"

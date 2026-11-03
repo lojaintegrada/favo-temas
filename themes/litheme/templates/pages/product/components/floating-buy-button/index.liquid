@@ -1,10 +1,10 @@
 {% assign product = data.product %}
 {% assign selected_sku = product.selected_sku %}
 {% assign has_variations = product.options.size > 0 %}
-{% assign is_upon_request = selected_sku.price.upon_request %}
+{% assign price = selected_sku.price | default: product.price %}
 
-{%- comment -%} Não renderiza floating buy button para produtos com preço sob consulta {%- endcomment -%}
-{% unless is_upon_request %}
+{%- comment -%} Não renderiza floating buy button para produtos com preço sob consulta ou restrito {%- endcomment -%}
+{% unless price.upon_request or product.hide_price %}
   <!-- Floating Buy Button -->
   <div
     id="floating-buy-button"
