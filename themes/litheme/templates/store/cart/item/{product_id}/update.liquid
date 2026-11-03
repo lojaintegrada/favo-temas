@@ -1,6 +1,7 @@
 <script type="text/javascript" id="toast-trigger" hx-swap-oob="true">
-  if (typeof window.toast === 'function') window.toast('Produto atualizado', {type: 'success'});
+  {% if data.cart.messages.size == 0 %}
+    if (typeof window.toast === 'function') window.toast('Produto atualizado', {type: 'success'});
+  {% endif %}
 </script>
 
 {% render 'shared/components/cart/index', with_session: true, component_type: 'minicart' %}
-{% render 'shared/utils/cart-message' %}
