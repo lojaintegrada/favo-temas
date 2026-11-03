@@ -8,6 +8,7 @@
     hx-indicator="#prod-shipping-spinner"
     hx-swap="outerHTML"
     hx-disable="find input, find button"
+    hx-sync="this:abort"
   {% else %}
     onsubmit="event.preventDefault();this.querySelector('#shipping_select_sku_msg').classList.remove('hidden')"
   {% endif %}
