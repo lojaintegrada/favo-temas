@@ -3,7 +3,6 @@
 ## Não publicado
 
 - HTMX atualizado da versão 2.0.8 para a 4.0.1.
-- Calcular frete na página de produto fazia duas consultas em sequência ao digitar o CEP, e a segunda ia sem o CEP, podendo sobrescrever o resultado correto. Agora faz uma consulta só.
 
 ## 70 — 2026-11-03
 
