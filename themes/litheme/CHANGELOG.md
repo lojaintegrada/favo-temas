@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+## 70 — 2026-11-03
+
 - Lojas com preço restrito a clientes logados: para visitantes sem login, o preço aparece como "R$ \*\*\*" no card e na página de produto, sem preço riscado, parcelamento, desconto à vista nem badge de desconto. Antes, o valor podia aparecer em branco ou como R$ 0,00.
 - Lojas com preço restrito: o card de produto deixa de mostrar o botão de compra rápida para visitantes sem login.
 - Lojas com preço restrito: na página de produto, o botão de comprar dá lugar a "Identifique-se para ver preço", que leva ao login e depois volta para o produto. O botão flutuante de compra, o link "mais formas de pagamento", o modal de formas de pagamento e o cálculo de frete não aparecem.
