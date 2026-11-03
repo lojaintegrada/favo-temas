@@ -1,5 +1,7 @@
 <script type="text/javascript" id="toast-trigger" hx-swap-oob="true">
-  if (typeof window.toast === 'function') window.toast('Produto adicionado ao carrinho', {type: 'success'});
+  {% if data.cart.messages.size == 0 %}
+    if (typeof window.toast === 'function') window.toast('Produto adicionado ao carrinho', {type: 'success'});
+  {% endif %}
   try {
     window.dispatchEvent(new Event('open-minicart'));
   } catch (error) { }
