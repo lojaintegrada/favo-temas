@@ -72,7 +72,6 @@ if (!customElements.get('carousel-embla')) {
 
       /** @type {boolean} Show progress animation on dots */
       this.showProgress = false;
-
       /** @type {number} Current animation timeout ID */
       this.progressTimeoutId = null;
 
@@ -83,7 +82,7 @@ if (!customElements.get('carousel-embla')) {
       this.handleNextClick = this.handleNextClick.bind(this);
       this.handleDotClick = this.handleDotClick.bind(this);
       this.updateUI = this.updateUI.bind(this);
-      this.handlePointerDown = this.handlePointerDown.bind(this);
+      this.handleWheelScroll = this.handleWheelScroll.bind(this);
       this.handleResize = this.handleResize.bind(this);
     }
 
@@ -176,7 +175,7 @@ if (!customElements.get('carousel-embla')) {
       const containScroll = this.getAttribute('data-contain-scroll') || 'trimSnaps';
       const dragFree = this.getAttribute('data-drag-free') === 'true';
       const draggable = this.getAttribute('data-draggable') !== 'false';
-      const speed = parseInt(this.getAttribute('data-speed')) || 10;
+      const duration = parseInt(this.getAttribute('data-duration')) || 25;
 
       // Parse responsive slides per view (mobile first)
       const slidesPerView = this.getAttribute('data-slides-per-view');
@@ -202,16 +201,14 @@ if (!customElements.get('carousel-embla')) {
         containScroll,
         dragFree,
         draggable,
-        speed
+        duration
       };
 
       const autoplay = this.getAttribute('data-autoplay') === 'true';
       const autoplayDelay = parseInt(this.getAttribute('data-autoplay-delay')) || 5000;
-      const stopOnInteraction = this.getAttribute('data-stop-on-interaction') !== 'false';
 
       this.autoplayConfig = autoplay ? {
-        delay: autoplayDelay,
-        stopOnInteraction
+        delay: autoplayDelay
       } : null;
 
       this.showProgress = this.getAttribute('data-show-progress') === 'true';
@@ -447,8 +444,12 @@ if (!customElements.get('carousel-embla')) {
       this.emblaApi.on('select', this.updateUI);
       this.emblaApi.on('reinit', this.updateUI);
 
-      if (this.showProgress) {
-        this.emblaApi.on('pointerdown', this.handlePointerDown);
+      if (this.showProgress && this.autoplayConfig) {
+        this.emblaApi.on('autoplay:play', () => this.startProgressAnimation(this.emblaApi.selectedSnap()));
+        this.emblaApi.on('autoplay:stop', () => this.stopProgressAnimation());
+      }
+      if (this.autoplayConfig && this.wheelGestures) {
+        this.emblaApi.on('scroll', this.handleWheelScroll);
       }
       if (this.autoplayConfig && this.emblaApi.snapList().length > 1) {
         this.emblaApi.plugins().autoplay?.play();
@@ -456,12 +457,13 @@ if (!customElements.get('carousel-embla')) {
     }
 
     /**
-     * Handles pointer down event (pause progress animation)
+     * Handles scroll driven by a wheel gesture (stop autoplay)
      * @private
      * @returns {void}
      */
-    handlePointerDown() {
-      this.stopProgressAnimation();
+    handleWheelScroll() {
+      if (!this.emblaNode.classList.contains('is-wheel-dragging')) return;
+      this.emblaApi.plugins().autoplay?.stop();
     }
 
     /**
@@ -538,7 +540,7 @@ if (!customElements.get('carousel-embla')) {
         });
       }
 
-      if (this.showProgress && this.autoplayConfig) {
+      if (this.showProgress && this.emblaApi.plugins().autoplay?.isPlaying()) {
         this.startProgressAnimation(selectedIndex);
       }
 
