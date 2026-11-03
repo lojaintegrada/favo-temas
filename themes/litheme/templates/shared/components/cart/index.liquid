@@ -5,7 +5,7 @@
   hx-swap="none"
   hx-swap-oob="innerHTML:[data-id='minicart-content']"
   hx-get="{% if component_type == 'cart' %}{{ routes.cart }}{% else %}{{ routes.cart_minicart }}{% endif %}"
-  hx-disabled-elt="find button, find input"
+  hx-disable="find button, find input"
   class="flex-1 flex flex-col gap-3"
   data-id="minicart-content"
 >

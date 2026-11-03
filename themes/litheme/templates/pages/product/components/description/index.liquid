@@ -3,7 +3,7 @@
     <input type="checkbox" name="description-accordion" checked aria-label="Expandir descrição do produto" />
     <div class="collapse-title">Descrição</div>
     <div class="collapse-content pb-10">
-      <div class="prose max-w-full text-sm font-normal text-base-content" hx-disable>
+      <div class="prose max-w-full text-sm font-normal text-base-content" hx-ignore>
         {{ data.product.description | sanitize | raw }}
       </div>
     </div>

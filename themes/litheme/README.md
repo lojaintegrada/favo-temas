@@ -11,7 +11,7 @@ Web Components em vanilla JS e HTMX para as interações dinâmicas.
 | ------ | ---------- |
 | Templates | Liquid |
 | CSS | Tailwind CSS 4 + DaisyUI 5 |
-| Interatividade | HTMX 2 |
+| Interatividade | HTMX 4 |
 | Componentes client-side | Web Components (vanilla JS) |
 | Carrossel | Embla Carousel |
 | Máscara de input | iMask |
@@ -53,7 +53,13 @@ em `PascalCase extends HTMLElement`, configuração via atributos `data-*`
 `attributeChangedCallback()`.
 
 **Libs de terceiros** vão minificadas em `assets/scripts/libs/`, com a versão no nome do
-arquivo (`htmx-2-0-8.min.js`).
+arquivo (`htmx-4-0-1.min.js`).
+
+**`data-send-only`** é do tema, não do HTMX. Um `<form>` sempre serializa todos os seus
+inputs; esse atributo lista, separado por vírgula, quais devem sobreviver. Um listener de
+`htmx:config:request` em `shared/utils/index.liquid` descarta o resto. Substitui o
+`hx-params`, removido no HTMX 4. Não use o prefixo `data-hx-` para atributos do tema — ele
+é o prefixo nativo do HTMX.
 
 **Hooks `appsection`** são pontos de extensão nos templates Liquid, usados por apps
 externas — ex: `{% appsection shelf_after_product_title %}`. Não remova nem renomeie.

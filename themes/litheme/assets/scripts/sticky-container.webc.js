@@ -65,16 +65,17 @@ if (!customElements.get('sticky-container')) {
      */
     initEventListeners() {
       window.addEventListener('resize', this._boundUpdateSticky);
-      document.body.addEventListener('htmx:afterSwap', this._boundHandleHtmxSwap);
+      document.body.addEventListener('htmx:after:swap', this._boundHandleHtmxSwap);
     }
 
     /**
-     * Handles HTMX afterSwap events
-     * @param {CustomEvent} event - The HTMX afterSwap event
+     * Handles HTMX after:swap events
+     * @param {CustomEvent} event - The HTMX after:swap event
      * @returns {void}
      */
     handleHtmxSwap(event) {
-      if (this.contains(event.detail.target) || event.detail.target === this) {
+      const target = event.detail.ctx.target;
+      if (target && (this.contains(target) || target === this)) {
         this.updateStickyBehavior();
       }
     }
@@ -85,7 +86,7 @@ if (!customElements.get('sticky-container')) {
      */
     cleanup() {
       window.removeEventListener('resize', this._boundUpdateSticky);
-      document.body.removeEventListener('htmx:afterSwap', this._boundHandleHtmxSwap);
+      document.body.removeEventListener('htmx:after:swap', this._boundHandleHtmxSwap);
       if (this._resizeObserver) {
         this._resizeObserver.disconnect();
         this._resizeObserver = null;

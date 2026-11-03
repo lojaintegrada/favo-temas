@@ -25,11 +25,11 @@
         class="pt-5 pb-10 md:pt-10 content-auto-[300px]"
         hx-get="/partial/product/buytogether"
         hx-trigger="update-selected-skus"
-        hx-params="buy_together_id,seed,current_product,selected_skus"
+        data-send-only="buy_together_id,seed,current_product,selected_skus"
         hx-swap="outerHTML"
         hx-target="closest buy-together-form"
         hx-select="buy-together-form"
-        hx-disabled-elt="input[type='checkbox'], input[type='radio'], select, button, a"
+        hx-disable="input[type='checkbox'], input[type='radio'], select, button, a"
         hx-indicator=".{{ buy_together_string_id }}-add"
       >
         <input type="hidden" name="buy_together_id" value="{{ buy_together.id }}" />

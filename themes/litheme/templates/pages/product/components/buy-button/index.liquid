@@ -91,11 +91,12 @@
       {% if selected_sku %}
         href="{{ add_to_cart_url }}"
         hx-post="{{ add_to_cart_url }}"
-        hx-swap="none show:window:top"
+        hx-swap="none"
+        hx-on::after:request="if (event.detail.ctx.response.status < 400) window.scrollTo({top: 0, behavior: 'smooth'})"
         hx-push-url="false"
         hx-indicator="#btn-add-to-cart-{{ selected_sku.id }}-spinner"
         hx-include="#{{ quantity_input_id }}"
-        hx-disabled-elt="find button"
+        hx-disable="find button"
       {% else %}
         aria-disabled="true"
         title="{{ select_variation_text }}"

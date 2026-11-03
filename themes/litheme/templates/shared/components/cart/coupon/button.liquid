@@ -12,7 +12,7 @@
     class="btn btn-secondary gap-2 h-10 w-1/2 flex-1"
     hx-delete="{{ routes.cart_coupon }}"
     hx-swap="none"
-    hx-disabled-elt="this"
+    hx-disable="this"
   >
     <input type="hidden" name="coupon_code" value="{{ data.cart.marketing.cupom.id }}" />
     <svg class="fill-current size-5 text-success" role="img" aria-hidden="true">

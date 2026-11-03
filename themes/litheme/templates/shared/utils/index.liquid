@@ -7,9 +7,20 @@
 {% endif %}
 
 <script>
-  document.addEventListener('htmx:responseError', function (evt) {
+  document.addEventListener('htmx:response:error', function (evt) {
     console.log(evt)
     window.toast('Falha ao executar ação. Tente novamente', {type: 'danger'});
+  });
+
+  document.addEventListener('htmx:config:request', function (evt) {
+    var only = evt.detail.ctx.sourceElement?.getAttribute('data-send-only');
+    if (!only) return;
+    var keep = only.split(',').map(function (name) { return name.trim(); });
+    var body = evt.detail.ctx.request.body;
+    if (!body || typeof body.delete !== 'function') return;
+    Array.from(new Set(body.keys())).forEach(function (name) {
+      if (keep.indexOf(name) === -1) body.delete(name);
+    });
   });
 </script>
 

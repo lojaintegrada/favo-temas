@@ -129,7 +129,7 @@ if (!customElements.get('product-card')) {
               if (buyUrlElement.hasAttribute('hx-trigger')) {
                 buyUrlElement.setAttribute('hx-post', newBuyUrl);
                 buyUrlElement.setAttribute('hx-trigger', 'click');
-                htmx.process(buyUrlElement);
+                htmx.process(buyUrlElement, true);
               }
             });
           } else {
@@ -137,7 +137,7 @@ if (!customElements.get('product-card')) {
               if (buyUrlElement.hasAttribute('hx-trigger')) {
                 buyUrlElement.removeAttribute('hx-post');
                 buyUrlElement.setAttribute('hx-trigger', 'none');
-                htmx.process(buyUrlElement);
+                htmx.process(buyUrlElement, true);
               }
             });
           }

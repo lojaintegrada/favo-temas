@@ -110,7 +110,7 @@
     hx-select="#contact-us-form"
     hx-swap="outerHTML show:top"
     hx-indicator="#contact-us-spinner"
-    hx-disabled-elt="find button, input, find textarea"
+    hx-disable="find button, input, find textarea"
   >
     {% if data.contact_us.success %}
       <div class="mt-16 text-center text-xl">
