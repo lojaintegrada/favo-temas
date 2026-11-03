@@ -1,5 +1,5 @@
 {% if layout_attributes.configuracao.politica_privacidade_cookie %}
-  {% if props.content %}
+  {% if ctx.location == 'partial' %}
     {%- assign politica_privacidade_pagina = layout_attributes.configuracao.politica_privacidade_pagina | plus: 0 -%}
     {%- assign politica_privacidade = data.institutional_pages | where: 'id', politica_privacidade_pagina | first -%}
     <div class="alert_cookies_accept floating-bar-style rounded-2xl px-10 md:px-6 py-5 mx-4 flex flex-col md:flex-row items-center gap-4">

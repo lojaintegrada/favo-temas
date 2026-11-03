@@ -1,14 +1,14 @@
 <div
   data-banner-stripe
   class="relative flex flex-col justify-center min-h-13 bg-base-100 md:min-h-10"
-  {%- if props.async or async %}
+  {%- unless ctx.location == 'partial' %}
     hx-get="/partial/banner/stripe"
     hx-trigger="load once delay:200ms"
     hx-swap="outerHTML"
     hx-select="[data-banner-stripe]"
-  {%- endif %}
+  {%- endunless %}
 >
-  {%- unless props.async or async -%}
+  {%- if ctx.location == 'partial' -%}
     {% assign payment_discount = data.payment_conditions.discount %}
     {% assign payment_installment = data.payment_conditions.installment %}
     {% assign free_freight_conditions = data.freight_conditions %}
@@ -65,5 +65,5 @@
         </div>
       </carousel-embla>
     {% endif %}
-  {%- endunless -%}
+  {%- endif -%}
 </div>

@@ -1,20 +1,18 @@
 {
-  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/pages-v4.json",
   "partial": {
     "path": "/partial/alert/cookies-accept",
     "components": [
       {
+        "type": "template",
+        "template": "shared/utils/alert-cookies.liquid",
         "data": {
           "institutional_pages": {
             "function": "get_institutional_pages"
           }
-        },
-        "template": "shared/utils/alert-cookies.liquid",
-        "properties": {
-          "content": true
         }
       }
     ]
   },
-  "_version": "3"
+  "_version": "4"
 }

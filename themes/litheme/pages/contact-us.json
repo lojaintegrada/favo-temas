@@ -3,10 +3,8 @@
     "body": {
       "components": [
         {
-          "template": "shared/components/banner/stripe.liquid",
-          "properties": {
-            "async": true
-          }
+          "type": "template",
+          "template": "shared/components/banner/stripe.liquid"
         },
         {
           "tag": "header",
@@ -52,11 +50,10 @@
               }
             },
             {
-              "type": "template",
-              "template": "components/space.liquid",
-              "properties": {
-                "class": "h-10 lg:h-20"
-              }
+              "type": "container",
+              "tag": "div",
+              "class": "h-10 lg:h-20",
+              "components": []
             }
           ]
         },
@@ -111,7 +108,7 @@
     }
   },
   "path": "/contact-us",
-  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
-  "_version": "3",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/pages-v4.json",
+  "_version": "4",
   "global_data": {}
 }

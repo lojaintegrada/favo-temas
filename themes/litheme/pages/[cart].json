@@ -3,10 +3,8 @@
     "body": {
       "components": [
         {
-          "template": "shared/components/banner/stripe.liquid",
-          "properties": {
-            "async": true
-          }
+          "type": "template",
+          "template": "shared/components/banner/stripe.liquid"
         },
         {
           "tag": "header",
@@ -19,10 +17,7 @@
             },
             {
               "type": "template",
-              "template": "shared/components/header/components/floating-bar/index.liquid",
-              "properties": {
-                "show_back_button": true
-              }
+              "template": "shared/components/header/components/floating-bar/index.liquid"
             },
             {
               "type": "template",
@@ -99,6 +94,6 @@
     }
   },
   "path": "/[cart]",
-  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
-  "_version": "3"
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/pages-v4.json",
+  "_version": "4"
 }

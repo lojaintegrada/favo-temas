@@ -1,5 +1,5 @@
 {% if layout_attributes.product_review.active %}
-  {% if props.content == 'product' %}
+  {% unless ctx.location == 'partial' %}
     {%- assign rating = data.product.rating -%}
     {%- assign reviews_total = rating.total | default: 0 -%}
     {%- assign reviews_total_float = reviews_total | plus: 0.0 -%}
@@ -78,9 +78,9 @@
         </div>
       </div>
     {% endif %}
-  {% endif %}
+  {% endunless %}
 
-  {% if props.content == 'reviews' %}
+  {% if ctx.location == 'partial' %}
     {%- assign reviews = data.reviews.reviews -%}
     {%- for review in reviews -%}
       {%- assign review_client_name = review.client_name | default: 'Anônimo' -%}

@@ -1,9 +1,11 @@
 {
-  "$schema": "https://cdn.awsli.com.br/public/render/schema/v1.json",
+  "$schema": "https://cdn.awsli.com.br/public/render/schema/pages-v4.json",
   "partial": {
     "path": "/partial/banner/stripe",
     "components": [
       {
+        "type": "template",
+        "template": "shared/components/banner/stripe.liquid",
         "data": {
           "payment_conditions": {
             "function": "get_payment_conditions"
@@ -11,11 +13,10 @@
           "freight_conditions": {
             "function": "get_freight_conditions"
           }
-        },
-        "template": "shared/components/banner/stripe.liquid"
+        }
       }
     ]
   },
-  "_version": "3",
+  "_version": "4",
   "global_data": {}
 }
