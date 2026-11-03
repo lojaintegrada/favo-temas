@@ -22,8 +22,7 @@
       {% endif %}
       hx-indicator="#prod-variations-selector-spinner"
       hx-on::before:request="this.classList.add('opacity-40', 'pointer-events-none')"
-      hx-on::after:request="this.classList.remove('opacity-40', 'pointer-events-none')"
-
+      hx-on::finally:request="this.classList.remove('opacity-40', 'pointer-events-none')"
       onsubmit="event.preventDefault()"
     >
       {%- for variation in product_options -%}
