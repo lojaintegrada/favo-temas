@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+- Acessibilidade: o botão de busca do cabeçalho passa a ter o nome "Buscar" anunciado corretamente por leitores de tela. Os fundos escuros dos drawers de busca, menu, minicart e filtros deixam de usar um atributo ARIA inválido, apontado pelo Lighthouse.
+
 ## 71 — 2026-11-03
 
 - HTMX atualizado da versão 2.0.8 para a 4.0.1.
