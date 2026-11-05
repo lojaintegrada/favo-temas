@@ -8,16 +8,16 @@
 
 {% if choice %}
   <section
-    id="cart-gift-choice"
     class="mx-5 mb-4 p-4 flex flex-col gap-3 bg-success/10 border border-dashed border-success rounded-box"
-    aria-labelledby="cart-gift-choice-title"
+    aria-label="Escolha seu brinde"
+    data-id="cart-gift-choice"
     data-testid="li-cart-gift-choice"
   >
     <div class="flex items-center gap-3">
       <svg class="fill-current size-5 text-success shrink-0" role="img" aria-hidden="true">
         <use xlink:href="/static/img/fontawesome-solid.svg#gift" href="/static/img/fontawesome-solid.svg#gift"></use>
       </svg>
-      <h2 id="cart-gift-choice-title" class="flex-1 text-base font-semibold text-base-content leading-6">Escolha seu brinde</h2>
+      <h2 class="flex-1 text-base font-semibold text-base-content leading-6">Escolha seu brinde</h2>
       {% if choice.total > 1 %}
         <span class="badge badge-sm badge-soft badge-success shrink-0">{{ choice.current }} de {{ choice.total }}</span>
       {% endif %}
