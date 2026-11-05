@@ -8,7 +8,7 @@
 
 <form 
   id="minicart-coupon-form" 
-  class="flex flex-col gap-4"
+  class="group flex flex-col gap-4"
   {% if data.cart.marketing.cupom.id %}
     hx-delete="{{ routes.cart_coupon }}"
   {% else %}
@@ -37,11 +37,13 @@
         </div>
       </div>
       <input type="hidden" name="coupon_code" value="{{ data.cart.marketing.cupom.id }}" />
-      <button type="submit" class="btn btn-outline btn-error">
-        <span class="htmx-indicator:hidden">Remover cupom</span>
-        <svg class="htmx-indicator fill-current size-5 animate-spin" role="img" aria-hidden="true">
-          <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
-        </svg>
+      <button type="submit" class="relative btn btn-outline btn-error">
+        <span class="group-[.htmx-request]:opacity-0">Remover cupom</span>
+        <span class="hidden group-[.htmx-request]:flex absolute inset-0 items-center justify-center">
+          <svg class="fill-current size-5 animate-spin" role="img" aria-hidden="true">
+            <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
+          </svg>
+        </span>
       </button>
     {% else %}
       {%- comment -%} Estado: Sem cupom {%- endcomment -%}
@@ -73,11 +75,13 @@
         autocomplete="off"
         data-testid="li-minicart-coupon-input"
       />
-      <button type="submit" class="btn btn-primary btn-md" data-testid="li-minicart-coupon-submit">
-        <span class="htmx-indicator:hidden">Aplicar cupom</span>
-        <svg class="htmx-indicator fill-current size-5 animate-spin" role="img" aria-hidden="true">
-          <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
-        </svg>
+      <button type="submit" class="relative btn btn-primary btn-md" data-testid="li-minicart-coupon-submit">
+        <span class="group-[.htmx-request]:opacity-0">Aplicar cupom</span>
+        <span class="hidden group-[.htmx-request]:flex absolute inset-0 items-center justify-center">
+          <svg class="fill-current size-5 animate-spin" role="img" aria-hidden="true">
+            <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
+          </svg>
+        </span>
       </button>
     {% endif %}
   </div>

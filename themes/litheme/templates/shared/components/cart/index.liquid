@@ -18,6 +18,7 @@
         </div>
         <div class="flex-1 overflow-y-auto scrollbar-thin md:row-span-5">
           {% render 'shared/components/cart/title', total_items: data.cart.items.size %}
+          {% render 'shared/components/cart/gift/choice' %}
           <ul role="list" class="flex flex-col divide-y divide-base-200">
             {% assign sorted_items = data.cart.items | sort_natural: 'sku' %}
             {% for item in sorted_items %}
@@ -65,7 +66,22 @@
           </div>
         </div>
         <div class="in-[minicart-drawer]:sticky bottom-0 p-5 pt-5 bg-linear-to-t from-neutral from-80%">
-          <a href="/checkout" class="btn btn-primary btn-xl w-full" data-testid="li-minicart-checkout-btn">
+          {% if data.cart.gift_choice %}
+            <a href="#cart-gift-choice" class="flex items-center justify-center gap-1.5 my-3 text-xs text-base-content/70 hover:underline" data-testid="li-minicart-gift-choice-alert">
+              <svg class="fill-current size-3 shrink-0" role="img" aria-hidden="true">
+                <use xlink:href="/static/img/fontawesome-solid.svg#gift" href="/static/img/fontawesome-solid.svg#gift"></use>
+              </svg>
+              Escolha seu brinde para finalizar a compra.
+            </a>
+          {% endif %}
+          <a
+            href="/checkout"
+            class="btn btn-primary btn-xl w-full {% if data.cart.gift_choice %}btn-disabled{% endif %}"
+            data-testid="li-minicart-checkout-btn"
+            {% if data.cart.gift_choice %}
+              aria-disabled="true"
+            {% endif %}
+          >
             Finalizar compra
             <span class="ml-1 bg-primary-content rounded-full p-1 text-primary">
               <svg class="fill-current size-2.5" role="img" aria-hidden="true">

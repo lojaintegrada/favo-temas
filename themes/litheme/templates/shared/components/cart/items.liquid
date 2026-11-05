@@ -1,3 +1,9 @@
+{%- comment -%} Brinde escolhido pelo cliente pode ser removido: volta para o seletor de brinde {%- endcomment -%}
+{%- if readonly -%}
+  {%- for offer in item.offers -%}
+    {%- if data.cart.gift_selections[offer.id] -%}{%- assign gift_offer_id = offer.id -%}{%- break -%}{%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 <li class="flex items-center gap-4 px-5 py-4" data-testid="li-minicart-item">
   {% if readonly %}<div class="w-full flex items-center bg-success/10 border border-dashed border-success rounded-box px-4 py-3 gap-5">{% endif %}
     <div class="size-20 shrink-0 overflow-hidden">
@@ -138,11 +144,17 @@
               </svg>
             </button>
           </form>
+        {% endif %}
+        {% unless readonly and gift_offer_id == nil %}
           <button
             type="button"
             class="text-base-content/70 transition-colors hover:text-base-content p-3 -mr-2"
             hx-swap="none"
-            hx-post="{{ routes.cart_item }}/{{ item.id }}/remove"
+            {% if gift_offer_id %}
+              hx-delete="{{ routes.cart_gift }}?offer_id={{ gift_offer_id | url_encode }}"
+            {% else %}
+              hx-post="{{ routes.cart_item }}/{{ item.id }}/remove"
+            {% endif %}
             hx-indicator=".spinner-{{ item.id }}"
             hx-disable="button, input"
             data-testid="li-minicart-item-remove"
@@ -158,7 +170,7 @@
               <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
             </svg>
           </span>
-        {% endif %}
+        {% endunless %}
       </div>
     </div>
   {% if readonly %}</div>{% endif %}
