@@ -18,6 +18,7 @@
         </div>
         <div class="flex-1 overflow-y-auto scrollbar-thin md:row-span-5">
           {% render 'shared/components/cart/title', total_items: data.cart.items.size %}
+          {% render 'shared/components/cart/gift/choice' %}
           <ul role="list" class="flex flex-col divide-y divide-base-200">
             {% assign sorted_items = data.cart.items | sort_natural: 'sku' %}
             {% for item in sorted_items %}
@@ -65,6 +66,19 @@
           </div>
         </div>
         <div class="in-[minicart-drawer]:sticky bottom-0 p-5 pt-5 bg-linear-to-t from-neutral from-80%">
+          {% if data.cart.gift_choice %}
+            <button
+              type="button"
+              class="w-full flex items-center justify-center gap-1.5 my-3 text-xs text-base-content/70 hover:underline cursor-pointer"
+              onclick="this.closest('[data-id=minicart-content]')?.querySelector('[data-id=cart-gift-choice]')?.querySelector('select, button')?.focus()"
+              data-testid="li-minicart-gift-choice-alert"
+            >
+              <svg class="fill-current size-3 shrink-0" role="img" aria-hidden="true">
+                <use xlink:href="/static/img/fontawesome-solid.svg#gift" href="/static/img/fontawesome-solid.svg#gift"></use>
+              </svg>
+              Você ganhou um brinde! Escolha o seu.
+            </button>
+          {% endif %}
           <a href="/checkout" class="btn btn-primary btn-xl w-full" data-testid="li-minicart-checkout-btn">
             Finalizar compra
             <span class="ml-1 bg-primary-content rounded-full p-1 text-primary">
