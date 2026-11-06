@@ -76,17 +76,10 @@
               <svg class="fill-current size-3 shrink-0" role="img" aria-hidden="true">
                 <use xlink:href="/static/img/fontawesome-solid.svg#gift" href="/static/img/fontawesome-solid.svg#gift"></use>
               </svg>
-              Escolha seu brinde para finalizar a compra.
+              Você ganhou um brinde! Escolha o seu.
             </button>
           {% endif %}
-          <a
-            href="/checkout"
-            class="btn btn-primary btn-xl w-full {% if data.cart.gift_choice %}btn-disabled{% endif %}"
-            data-testid="li-minicart-checkout-btn"
-            {% if data.cart.gift_choice %}
-              aria-disabled="true"
-            {% endif %}
-          >
+          <a href="/checkout" class="btn btn-primary btn-xl w-full" data-testid="li-minicart-checkout-btn">
             Finalizar compra
             <span class="ml-1 bg-primary-content rounded-full p-1 text-primary">
               <svg class="fill-current size-2.5" role="img" aria-hidden="true">
