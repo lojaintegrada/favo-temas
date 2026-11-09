@@ -133,7 +133,16 @@
 /* Badge */
 
 @utility badge {
-  @apply px-2;
+  @apply px-1.5 h-auto min-h-(--size) py-px leading-tight;
+}
+
+/* DaisyUI pinta o texto do soft com a própria cor do badge: warning e success ficam ilegíveis */
+@utility badge-soft {
+  color: color-mix(
+    in oklab,
+    var(--badge-color, var(--color-base-content)) 60%,
+    black
+  );
 }
 
 /* Button */
