@@ -2,6 +2,8 @@
 
 ## Não publicado
 
+## 72 — 2026-11-11
+
 - Acessibilidade: o botão de busca do cabeçalho passa a ter o nome "Buscar" anunciado corretamente por leitores de tela. Os fundos escuros dos drawers de busca, menu, minicart e filtros deixam de usar um atributo ARIA inválido, apontado pelo Lighthouse.
 - Mensagens que a loja deixa pendentes para exibir na próxima página (por exemplo, acessar `/checkout` não tendo nenhum produto adicionado) agora aparecem como notificação (toast) quando essa página carrega. Antes, o tema não mostrava essas mensagens.
 - Erros ao usar o carrinho, cupom, frete e formulários agora mostram o motivo (por exemplo, "Informe o código do cupom." ou "CEP inválido."). Antes, aparecia sempre "Falha ao executar ação", e sem a cor de erro.
