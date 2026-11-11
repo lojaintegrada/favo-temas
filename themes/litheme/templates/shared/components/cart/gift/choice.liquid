@@ -1,0 +1,76 @@
+{%- comment -%}
+  Componente: Gift Choice
+  Descrição: Seletor do brinde que o cliente pode escolher no carrinho. Até 3 produtos, os cartões
+    ficam no bloco; acima disso, o bloco vira um resumo que abre a lista completa num dialog
+    (top layer, para não ficar preso ao painel do minicart)
+  Props esperadas via data.cart.gift_choice (nil quando não há brinde para escolher)
+{%- endcomment -%}
+
+{%- assign choice = data.cart.gift_choice -%}
+
+{% if choice %}
+  {%- capture gift_title -%}
+    {%- if choice.total > 1 -%}Você ganhou {{ choice.total }} brindes{%- else -%}Você ganhou um brinde{%- endif -%}
+  {%- endcapture -%}
+  {%- capture gift_subtitle -%}
+    Escolha 1 de {{ choice.products.size }}{% if choice.total > 1 %} · brinde {{ choice.current }} de {{ choice.total }}{% endif %}
+  {%- endcapture -%}
+  {%- comment -%} Até 3: título solto e um box por brinde. Acima: o resumo é o box {%- endcomment -%}
+  <section
+    class="mx-5 flex flex-col gap-3 {% if choice.products.size > 3 %}p-4 bg-success/10 border border-dashed border-success rounded-box{% endif %}"
+    aria-label="{{ gift_title }}"
+    data-id="cart-gift-choice"
+    data-testid="li-cart-gift-choice"
+  >
+    <div class="flex items-center gap-3">
+      <svg class="fill-current size-5 text-success shrink-0" role="img" aria-hidden="true">
+        <use xlink:href="/static/img/fontawesome-solid.svg#gift" href="/static/img/fontawesome-solid.svg#gift"></use>
+      </svg>
+      <div class="flex-1 min-w-0">
+        <h2 class="text-base font-semibold text-base-content leading-6">{{ gift_title }}</h2>
+        <p class="text-xs text-base-content/70">{{ gift_subtitle }}</p>
+      </div>
+      {% if choice.products.size > 3 %}
+        <button
+          type="button"
+          class="btn btn-primary btn-sm shrink-0"
+          onclick="this.nextElementSibling.showModal()"
+          data-id="gift-choice-open"
+          data-testid="li-cart-gift-choice-open"
+        >
+          Escolher
+        </button>
+        <dialog class="modal modal-bottom sm:modal-middle" aria-label="{{ gift_title }}">
+          <div class="modal-box bg-neutral p-0 flex flex-col max-h-[85dvh]">
+            <div class="flex items-center gap-3 px-5 py-4 border-b border-base-200">
+              <div class="flex-1 min-w-0">
+                <h3 class="text-lg font-medium text-base-content leading-6">{{ gift_title }}</h3>
+                <p class="text-xs text-base-content/70">{{ gift_subtitle }}</p>
+              </div>
+              <form method="dialog" class="shrink-0">
+                <button class="btn btn-ghost btn-square -mr-2" aria-label="Fechar">
+                  <svg class="fill-current size-5 shrink-0" role="img" aria-hidden="true">
+                    <use xlink:href="/static/img/fontawesome-solid.svg#xmark" href="/static/img/fontawesome-solid.svg#xmark"></use>
+                  </svg>
+                </button>
+              </form>
+            </div>
+            <ul role="list" class="overflow-y-auto scrollbar-thin px-5 py-4 flex flex-col gap-3">
+              {% for product in choice.products %}
+                {% render 'shared/components/cart/gift/card', product: product, offer_id: choice.offer_id %}
+              {% endfor %}
+            </ul>
+          </div>
+          <form method="dialog" class="modal-backdrop"><button>Fechar</button></form>
+        </dialog>
+      {% endif %}
+    </div>
+    {% if choice.products.size <= 3 %}
+      <ul role="list" class="flex flex-col gap-3">
+        {% for product in choice.products %}
+          {% render 'shared/components/cart/gift/card', product: product, offer_id: choice.offer_id %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+{% endif %}

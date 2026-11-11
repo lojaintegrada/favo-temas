@@ -1,0 +1,63 @@
+{%- comment -%}
+  Componente: Gift Card
+  Descrição: Cartão de um produto do seletor de brinde, usado no bloco do carrinho e na lista completa
+  Props: product (item de gift_choice.products), offer_id
+{%- endcomment -%}
+
+<li>
+  <form
+    class="group flex gap-5 px-4 py-3 bg-success/10 border border-dashed border-success rounded-box"
+    hx-post="{{ routes.cart_gift }}"
+    hx-trigger="change, submit"
+    hx-swap="none"
+    hx-disable="find button, find select"
+    data-testid="li-cart-gift-choice-option"
+  >
+    <input type="hidden" name="offer_id" value="{{ offer_id }}" />
+    <div class="size-12.5 md:size-20 shrink-0 overflow-hidden">
+      <img src="{{ ctx.static_domain }}/80x80/{{ product.images[0].path | default: '0/0/common/product-no-image.gif' }}" alt="{{ product.name }}" class="h-full w-full object-contain object-center rounded-xl" loading="lazy" />
+    </div>
+    <div class="flex-1 min-w-0 flex flex-col gap-2">
+      <div class="flex justify-between gap-3">
+        <div class="min-w-0">
+          <p class="text-sm font-medium text-base-content leading-5 break-words line-clamp-2">{{ product.name }}</p>
+          {%- assign option = product.options.first -%}
+          {% if product.options.size == 1 and option.variation_name and option.variation_name != product.name %}
+            <p class="mt-0.5 text-xs font-light text-base-content/70">{{ option.variation_name }}</p>
+          {% endif %}
+        </div>
+        <p class="shrink-0 flex flex-col items-end text-sm leading-5">
+          <span class="font-bold text-success">Grátis</span>
+          {% if product.price > 0 %}
+            <s class="text-xs text-base-content/70">{{ product.price | format_number: "C" }}</s>
+          {% endif %}
+        </p>
+      </div>
+      {% if product.options.size > 1 %}
+        <div class="relative w-full">
+          <select name="product_id" class="select w-full pl-7 justify-center text-center [text-align-last:center] text-success bg-neutral border-success/30 group-[.htmx-request]:opacity-0" aria-label="Variação de {{ product.name }}" data-testid="li-cart-gift-choice-select">
+            <option value="" disabled selected>Escolher opção</option>
+            {% for option in product.options %}
+              <option value="{{ option.id }}">{{ option.variation_name }}</option>
+            {% endfor %}
+          </select>
+          <span class="hidden group-[.htmx-request]:flex absolute inset-0 items-center justify-center bg-neutral border border-success/30 rounded-field">
+            <svg class="fill-current size-4 animate-spin" role="img" aria-hidden="true">
+              <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
+            </svg>
+          </span>
+        </div>
+      {% else %}
+        <input type="hidden" name="product_id" value="{{ option.id }}" />
+        <button type="submit" class="relative btn btn-neutral btn-sm w-full text-sm text-success bg-none border border-solid border-success/30" data-testid="li-cart-gift-choice-submit">
+          <span class="group-[.htmx-request]:opacity-0">Escolher este brinde</span>
+          <span class="hidden group-[.htmx-request]:flex absolute inset-0 items-center justify-center">
+            <svg class="fill-current size-4 animate-spin" role="img" aria-hidden="true">
+              <use xlink:href="/static/img/fontawesome-solid.svg#spinner" href="/static/img/fontawesome-solid.svg#spinner"></use>
+            </svg>
+          </span>
+        </button>
+      {% endif %}
+    </div>
+  </form>
+</li>

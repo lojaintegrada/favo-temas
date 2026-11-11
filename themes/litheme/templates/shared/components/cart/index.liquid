@@ -16,7 +16,7 @@
           {% render 'shared/components/cart/free-shipping-alert/index' %}
           {% render 'shared/components/cart/progressive-discount/index' %}
         </div>
-        <div class="flex-1 overflow-y-auto scrollbar-thin md:row-span-5">
+        <div class="flex-1 overflow-y-auto scrollbar-thin md:row-span-5 space-y-4">
           {% render 'shared/components/cart/title', total_items: data.cart.items.size %}
           <ul role="list" class="flex flex-col divide-y divide-base-200">
             {% assign sorted_items = data.cart.items | sort_natural: 'sku' %}
@@ -28,6 +28,7 @@
               {% render 'shared/components/cart/items', item: item, readonly: true %}
             {% endfor %}
           </ul>
+          {% render 'shared/components/cart/gift/choice' %}
           {% render 'shared/components/cart/gift/index' %}
         </div>
         <hr class="border-base-200 mb-2 md:hidden in-[minicart-drawer]:block!" />
@@ -65,7 +66,12 @@
           </div>
         </div>
         <div class="in-[minicart-drawer]:sticky bottom-0 p-5 pt-5 bg-linear-to-t from-neutral from-80%">
-          <a href="/checkout" class="btn btn-primary btn-xl w-full" data-testid="li-minicart-checkout-btn">
+          <a
+            href="/checkout"
+            class="btn btn-primary btn-xl w-full"
+            data-testid="li-minicart-checkout-btn"
+            {% if data.cart.gift_choice %}onclick="event.preventDefault(); this.nextElementSibling.showModal()"{% endif %}
+          >
             Finalizar compra
             <span class="ml-1 bg-primary-content rounded-full p-1 text-primary">
               <svg class="fill-current size-2.5" role="img" aria-hidden="true">
@@ -73,6 +79,7 @@
               </svg>
             </span>
           </a>
+          {% render 'shared/components/cart/gift/missing-modal' %}
         </div>
       </div>
     {% else %}

@@ -2,6 +2,11 @@
 
 ## Não publicado
 
+- Promoções de brinde com mais de uma opção: o carrinho e o minicart mostram, abaixo dos itens, os brindes disponíveis para o cliente escolher. O brinde é escolhido ao selecionar a variação, sem botão de confirmar; brinde sem variação tem o botão "Escolher este brinde". Com mais de 3 brindes, o carrinho mostra um resumo que abre a lista completa.
+- Ao clicar em "Finalizar compra" sem ter escolhido o brinde, o cliente é perguntado se quer escolher o brinde ou continuar sem ele. "Escolher brinde" leva até a escolha.
+- O brinde escolhido pelo cliente ganha o botão de remover, que devolve a escolha para o seletor. Brindes concedidos automaticamente continuam sem esse botão.
+- Botões "Aplicar cupom" e "Remover cupom": o ícone de carregamento deixa de ocupar espaço vazio ao lado do texto e passa a aparecer no lugar dele enquanto o cupom é processado.
+
 ## 72 — 2026-11-11
 
 - Acessibilidade: o botão de busca do cabeçalho passa a ter o nome "Buscar" anunciado corretamente por leitores de tela. Os fundos escuros dos drawers de busca, menu, minicart e filtros deixam de usar um atributo ARIA inválido, apontado pelo Lighthouse.
