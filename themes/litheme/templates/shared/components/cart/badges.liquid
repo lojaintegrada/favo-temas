@@ -1,0 +1,23 @@
+{% assign has_buy_x_pay_y = false %}
+{% for offer in item.offers %}
+  {% if offer.type == 'buy_x_pay_y' %}{% assign has_buy_x_pay_y = true %}{% endif %}
+{% endfor %}
+{% for teaser in item.offers_teasers %}
+  {% if teaser.offer_type == 'buy_x_pay_y' and teaser.effect.show_teaser and teaser.incentive %}{% assign has_buy_x_pay_y = true %}{% endif %}
+{% endfor %}
+<div class="flex flex-wrap gap-1 mb-1">
+  {% for offer in item.offers %}
+    {% if offer.meta.show_teaser %}
+      {% if offer.type == 'buy_x_pay_y' or offer.type == 'percentage' or offer.type == 'nominal' %}
+        {% unless has_buy_x_pay_y and offer.type != 'buy_x_pay_y' %}
+          <span class="badge badge-sm badge-soft badge-success">{{ offer.headline | default: 'Promoção' }}</span>
+        {% endunless %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% for teaser in item.offers_teasers %}
+    {% if teaser.effect.show_teaser and teaser.incentive %}
+      <span class="badge badge-sm badge-soft badge-warning">{{ teaser.incentive }}</span>
+    {% endif %}
+  {% endfor %}
+</div>
